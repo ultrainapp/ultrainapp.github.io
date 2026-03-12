@@ -1,0 +1,1444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ulTrain - Find endurance races and build volume-based training plans for running, walking, and hiking. Your ultra marathon companion.">
+    <title>ulTrain - Endurance Training & Race Finder</title>
+    <style>
+        /* Design System Variables - ulTrain brand */
+        :root {
+            --color-primary: #F09A36;
+            --color-primary-dark: #d88528;
+            --color-accent: #F09A36;
+            --color-accent-light: #f5b55c;
+            --color-bg: #364350;
+            --color-white: #425360;
+            --color-light: #4a5c6b;
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #CCCCCC;
+            --color-border: rgba(255, 255, 255, 0.12);
+            
+            --gradient-primary: linear-gradient(135deg, #F09A36 0%, #d88528 100%);
+            --gradient-accent: linear-gradient(135deg, #f5b55c 0%, #F09A36 100%);
+            --gradient-mesh: radial-gradient(at 0% 0%, rgba(240, 154, 54, 0.15) 0px, transparent 50%),
+                             radial-gradient(at 100% 0%, rgba(240, 154, 54, 0.1) 0px, transparent 50%),
+                             radial-gradient(at 100% 100%, rgba(240, 154, 54, 0.1) 0px, transparent 50%),
+                             radial-gradient(at 0% 100%, rgba(240, 154, 54, 0.15) 0px, transparent 50%);
+            
+            --font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            --font-display: 'SF Pro Display', -apple-system, sans-serif;
+            --transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 16px 48px rgba(240, 154, 54, 0.2);
+            --shadow-colored: 0 20px 60px rgba(240, 154, 54, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 400;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(24px) saturate(180%);
+            background: rgba(54, 67, 80, 0.9);
+            border-bottom: 1px solid var(--color-border);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+            transition: var(--transition-smooth);
+        }
+
+        .logo:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9375rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 0.65rem 1.5rem;
+            border-radius: 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg);
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 6rem;
+        }
+
+        .hero .hero-grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(240, 154, 54, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float-blob 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(240, 154, 54, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float-blob 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float-blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero-content {
+            max-width: 1080px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 5.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F09A36 50%, #f5b55c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.08;
+            margin-bottom: 2rem;
+            letter-spacing: -0.045em;
+            font-family: var(--font-display);
+            animation: gradient-shift 8s ease infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            max-width: 520px;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .app-store-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #F09A36 0%, #d88528 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-store-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #f5b55c 0%, #F09A36 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .app-store-button:hover::before {
+            opacity: 1;
+        }
+
+        .app-store-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(240, 154, 54, 0.4);
+        }
+
+        .app-store-button svg,
+        .app-store-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-store-button svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-mockup {
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(135deg, rgba(240, 154, 54, 0.08) 0%, rgba(54, 67, 80, 0.5) 100%);
+            border-radius: 48px;
+            border: 1px solid rgba(240, 154, 54, 0.25);
+            box-shadow: 0 32px 64px rgba(240, 154, 54, 0.15), 0 0 0 1px rgba(240, 154, 54, 0.1);
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: float-phone 6s ease-in-out infinite;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 48px;
+            padding: 2px;
+            background: linear-gradient(135deg, #F09A36, #f5b55c, #d88528);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .phone-mockup:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 40px 80px rgba(240, 154, 54, 0.25);
+        }
+
+        .phone-mockup:hover::before {
+            opacity: 1;
+        }
+
+        .mockup-screen {
+            position: absolute;
+            inset: 16px;
+            border-radius: 36px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .mockup-header {
+            padding: 12px 16px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mockup-notch {
+            width: 100px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mockup-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            letter-spacing: 0.05em;
+        }
+
+        .mockup-body {
+            flex: 1;
+            padding: 8px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mockup-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .mockup-card.small {
+            padding: 12px 14px;
+        }
+
+        .mockup-line {
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mockup-line.wide { width: 80%; }
+        .mockup-line.medium { width: 55%; }
+        .mockup-line.short { width: 35%; }
+
+        .mockup-bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 60px;
+            margin-top: 4px;
+        }
+
+        .mockup-bar {
+            flex: 1;
+            background: var(--color-primary);
+            border-radius: 3px 3px 0 0;
+            opacity: 0.5;
+        }
+
+        .mockup-tab-bar {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 24px 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .mockup-tab {
+            width: 20px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .mockup-tab.active {
+            background: var(--color-primary);
+            opacity: 0.7;
+        }
+
+        @keyframes float-phone {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(-2deg); }
+            50% { transform: translateY(-25px) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(2deg); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: var(--color-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            font-family: var(--font-display);
+            line-height: 1.1;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #F09A36 0%, #f5b55c 100%);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.3s;
+        }
+
+        .section-title.animated::after {
+            opacity: 1;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1875rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            line-height: 1.65;
+        }
+
+        .features-grid {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            cursor: default;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+            border-color: rgba(240, 154, 54, 0.3);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .feature-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: rgba(255, 255, 255, 0.7);
+            stroke-width: 1.5;
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: rgba(240, 154, 54, 0.1);
+            border-color: rgba(240, 154, 54, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .feature-card:hover .feature-icon svg {
+            stroke: var(--color-primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .feature-card p {
+            color: var(--color-text-secondary);
+            line-height: 1.65;
+            font-size: 1rem;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 8rem 2rem;
+            background: var(--color-bg);
+            overflow: hidden;
+        }
+
+        .screenshots-container {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 2rem 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screenshots-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .screenshots-container::-webkit-scrollbar-track {
+            background: var(--color-light);
+            border-radius: 4px;
+        }
+
+        .screenshots-container::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+
+        .screenshot {
+            min-width: 280px;
+            height: 580px;
+            background: linear-gradient(135deg, rgba(240, 154, 54, 0.08) 0%, rgba(54, 67, 80, 0.5) 100%);
+            border-radius: 40px;
+            scroll-snap-align: center;
+            box-shadow: 0 24px 48px rgba(240, 154, 54, 0.12);
+            border: 1px solid rgba(240, 154, 54, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: 1.125rem;
+            font-weight: 500;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screenshot::before {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.15) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .screenshot:hover::before {
+            transform: translateX(100%);
+        }
+
+        .screenshot:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 32px 64px rgba(240, 154, 54, 0.2);
+            border-color: rgba(240, 154, 54, 0.4);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 8rem 2rem;
+            background: var(--color-bg);
+        }
+
+        .testimonials .section-title,
+        .testimonials .section-subtitle {
+            color: var(--color-text-primary);
+        }
+
+        .testimonials-grid {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            border-color: rgba(240, 154, 54, 0.2);
+        }
+
+        .testimonial-rating {
+            color: #F09A36;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            color: var(--color-text-primary);
+            font-weight: 400;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #364350;
+        }
+
+        .author-info h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .author-info p {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-weight: 400;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 6rem 2rem;
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            position: relative;
+        }
+
+        .stats-grid {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+
+        .stat-item {
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(240, 154, 54, 0.2);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1.25rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .stat-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: rgba(255, 255, 255, 0.6);
+            stroke-width: 1.5;
+            fill: none;
+            transition: stroke 0.3s ease;
+        }
+
+        .stat-item:hover .stat-icon {
+            background: rgba(240, 154, 54, 0.1);
+            border-color: rgba(240, 154, 54, 0.25);
+        }
+
+        .stat-item:hover .stat-icon svg {
+            stroke: var(--color-primary);
+        }
+
+        .stat-item h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+            color: var(--color-text-primary);
+        }
+
+        .stat-item p {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 2rem;
+            background: var(--color-bg);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 3.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            font-family: var(--font-display);
+            color: var(--color-text-primary);
+            line-height: 1.1;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: var(--color-text-secondary);
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            line-height: 1.65;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3a46;
+            color: var(--color-text-primary);
+            padding: 0;
+        }
+
+        .footer-top {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 3.5rem 2rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--color-primary);
+        }
+
+        .footer-tagline {
+            font-size: 0.9375rem;
+            color: var(--color-text-secondary);
+            font-weight: 300;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+        }
+
+        .footer-nav a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-primary);
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.25rem;
+            margin-top: 0.25rem;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-social a:hover {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #2c3a46;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            padding: 1.5rem 2rem;
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.8125rem;
+            letter-spacing: 0.02em;
+            font-weight: 300;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .hero-text p {
+                font-size: 1.125rem;
+                max-width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .phone-mockup {
+                width: 280px;
+                height: 560px;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .features-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll Animations - Fixed initial state */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in:not(.animated) {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .fade-in.animated {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-left:not(.animated) {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .slide-in-left.animated {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right:not(.animated) {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .slide-in-right.animated {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .scale-in:not(.animated) {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .scale-in.animated {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Enhanced Hover Effects */
+        @keyframes subtleFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Stagger Animation Delay */
+        .fade-in.animated:nth-child(1) { transition-delay: 0.1s; }
+        .fade-in.animated:nth-child(2) { transition-delay: 0.2s; }
+        .fade-in.animated:nth-child(3) { transition-delay: 0.3s; }
+        .fade-in.animated:nth-child(4) { transition-delay: 0.4s; }
+        .fade-in.animated:nth-child(5) { transition-delay: 0.5s; }
+        .fade-in.animated:nth-child(6) { transition-delay: 0.6s; }
+
+        /* Gradient Text Effect */
+        .gradient-text {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F09A36 50%, #f5b55c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Smooth Transitions */
+        * {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Floating Elements */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-slow {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        /* Interactive hover effects */
+        .interactive-card {
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">ulTrain</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+            <button class="mobile-menu-button" aria-label="Menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-grain"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="slide-in-left">Go the Distance.</h1>
+                <p class="slide-in-left">Find your next race. Build volume-based training plans for running, walking, or hiking. ulTrain is built for endurance athletes who live for the long road ahead.</p>
+                <div class="hero-buttons">
+                    <a href="#download" class="app-store-button">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
+                        Download on App Store
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-mockup parallax">
+                    <div class="mockup-screen">
+                        <div class="mockup-header">
+                            <div class="mockup-notch"></div>
+                            <span class="mockup-title">ulTrain</span>
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mockup-card">
+                                <div class="mockup-line wide"></div>
+                                <div class="mockup-line medium"></div>
+                            </div>
+                            <div class="mockup-card">
+                                <div class="mockup-line wide"></div>
+                                <div class="mockup-line short"></div>
+                                <div class="mockup-bar-chart">
+                                    <div class="mockup-bar" style="height:40%"></div>
+                                    <div class="mockup-bar" style="height:60%"></div>
+                                    <div class="mockup-bar" style="height:45%"></div>
+                                    <div class="mockup-bar" style="height:80%"></div>
+                                    <div class="mockup-bar" style="height:65%"></div>
+                                    <div class="mockup-bar" style="height:90%"></div>
+                                    <div class="mockup-bar" style="height:55%"></div>
+                                </div>
+                            </div>
+                            <div class="mockup-card small">
+                                <div class="mockup-line medium"></div>
+                                <div class="mockup-line short"></div>
+                            </div>
+                        </div>
+                        <div class="mockup-tab-bar">
+                            <div class="mockup-tab"></div>
+                            <div class="mockup-tab active"></div>
+                            <div class="mockup-tab"></div>
+                            <div class="mockup-tab"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title fade-in">Built for the Long Haul</h2>
+        <p class="section-subtitle fade-in">Everything endurance athletes need to find races, plan training, and build volume week after week.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card fade-in interactive-card">
+                <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20l5-14 4 8 3-5 4 11"/></svg></div>
+                <h3>Race Finder</h3>
+                <p>Browse and discover ultras, trail races, and endurance events. Filter by distance, terrain, elevation, and location to find your next challenge.</p>
+            </div>
+            
+            <div class="feature-card fade-in interactive-card">
+                <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+                <h3>Volume Training Plans</h3>
+                <p>Periodized plans built around weekly volume progression. Structured build weeks, cutback weeks, and tapers designed for peak race-day performance.</p>
+            </div>
+            
+            <div class="feature-card fade-in interactive-card">
+                <div class="feature-icon"><svg viewBox="0 0 24 24"><polyline points="4 18 8 12 12 15 16 8 20 11"/><line x1="4" y1="20" x2="20" y2="20"/></svg></div>
+                <h3>Progress Tracking</h3>
+                <p>Monitor weekly mileage, elevation gain, and long-run progression. Visualize your training volume over time to stay on track for race day.</p>
+            </div>
+            
+            <div class="feature-card fade-in interactive-card">
+                <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M10 22l2-7 3 3 3-5M10 22l-2-5-3 1"/></svg></div>
+                <h3>Run. Walk. Hike.</h3>
+                <p>Not just for runners. Build training plans for walking and hiking too. Whether it's a 100-miler or a thru-hike, ulTrain has you covered.</p>
+            </div>
+            
+            <div class="feature-card fade-in interactive-card">
+                <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2C9 2 7 5 7 9c0 5 2 11 5 13 3-2 5-8 5-13 0-4-2-7-5-7z"/><line x1="12" y1="2" x2="12" y2="6"/></svg></div>
+                <h3>Nutrition Tracking</h3>
+                <p>Log what you eat and drink during training and events. Track what works, what doesn't, and dial in your race-day fueling strategy.</p>
+            </div>
+            
+            <div class="feature-card fade-in interactive-card">
+                <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 5V3h6v2"/><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M9 12l2 2 4-4"/></svg></div>
+                <h3>Kit Listing</h3>
+                <p>Build mandatory and optional kit lists for every race. Check off items as you pack so nothing gets forgotten on race day.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots" id="screenshots">
+        <h2 class="section-title fade-in">See It In Action</h2>
+        <p class="section-subtitle fade-in">A clean, focused interface designed for athletes who train by volume.</p>
+        
+        <div class="screenshots-container">
+            <div class="screenshot">Race Calendar</div>
+            <div class="screenshot">Training Plan</div>
+            <div class="screenshot">Volume Stats</div>
+            <div class="screenshot">Nutrition Log</div>
+            <div class="screenshot">Profile</div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div>
+                <h3>Athletes</h3>
+                <p>A growing global community of endurance athletes</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                <h3>Miles</h3>
+                <p>Millions of miles logged across trails and roads</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                <h3>Top Rated</h3>
+                <p>Consistently top-rated on the App Store</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+                <h3>Races</h3>
+                <p>An ever-expanding catalogue of endurance events</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title fade-in">Trusted by the Community</h2>
+        <p class="section-subtitle fade-in">Hear from endurance athletes who train with ulTrain every day.</p>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card scale-in">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Used ulTrain to build my entire 24-week plan for Western States. The volume progression was dialed and I PR'd by over an hour. This app gets ultra training."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">KR</div>
+                    <div class="author-info">
+                        <h4>Kate Rawlings</h4>
+                        <p>100-Mile Ultra Runner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card scale-in">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"I'm not a runner -- I'm a hiker. ulTrain is the first app that lets me build a real training plan for thru-hiking. The volume tracking for long days on trail is exactly what I needed."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DM</div>
+                    <div class="author-info">
+                        <h4>Dan Moreno</h4>
+                        <p>Long-Distance Hiker</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card scale-in">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Went from half marathons to my first ultra using the volume plans in ulTrain. The race finder helped me pick the perfect event. Can't recommend it enough."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AL</div>
+                    <div class="author-info">
+                        <h4>Aisha Lawson</h4>
+                        <p>Trail Runner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="download">
+        <h2>Ready to Go the Distance?</h2>
+        <p>Endurance athletes everywhere are building volume, finding races, and chasing finish lines with ulTrain.</p>
+        <a href="#" class="app-store-button">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+            Download Free on App Store
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-logo">ulTrain</div>
+            <p class="footer-tagline">Built for those who go the distance.</p>
+            <ul class="footer-nav">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+            <div class="footer-social">
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="Instagram">IG</a>
+                <a href="mailto:hello@ultrain.app" aria-label="Email">✉</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ulTrain. All rights reserved. Made with love for endurance enthusiasts.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (basic implementation)
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Fixed Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        // Parallax effect for hero phone mockup
+        let ticking = false;
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    const parallaxElements = document.querySelectorAll('.parallax');
+                    
+                    parallaxElements.forEach(el => {
+                        const speed = 0.3;
+                        const yPos = -(scrolled * speed);
+                        el.style.transform = `translateY(${yPos}px)`;
+                    });
+                    
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+
+        // Smooth reveal for hero elements on load
+        window.addEventListener('load', () => {
+            const heroElements = document.querySelectorAll('.hero .slide-in-left');
+            heroElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('animated');
+                }, index * 150);
+            });
+        });
+    </script>
+
+</body>
+</html>
