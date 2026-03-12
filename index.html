@@ -606,6 +606,13 @@
             overflow: hidden;
         }
 
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .screenshot::before {
             content: '';
             position: absolute;
@@ -1150,39 +1157,7 @@
             <div class="hero-image">
                 <div class="phone-mockup parallax">
                     <div class="mockup-screen">
-                        <div class="mockup-header">
-                            <div class="mockup-notch"></div>
-                            <span class="mockup-title">ulTrain</span>
-                        </div>
-                        <div class="mockup-body">
-                            <div class="mockup-card">
-                                <div class="mockup-line wide"></div>
-                                <div class="mockup-line medium"></div>
-                            </div>
-                            <div class="mockup-card">
-                                <div class="mockup-line wide"></div>
-                                <div class="mockup-line short"></div>
-                                <div class="mockup-bar-chart">
-                                    <div class="mockup-bar" style="height:40%"></div>
-                                    <div class="mockup-bar" style="height:60%"></div>
-                                    <div class="mockup-bar" style="height:45%"></div>
-                                    <div class="mockup-bar" style="height:80%"></div>
-                                    <div class="mockup-bar" style="height:65%"></div>
-                                    <div class="mockup-bar" style="height:90%"></div>
-                                    <div class="mockup-bar" style="height:55%"></div>
-                                </div>
-                            </div>
-                            <div class="mockup-card small">
-                                <div class="mockup-line medium"></div>
-                                <div class="mockup-line short"></div>
-                            </div>
-                        </div>
-                        <div class="mockup-tab-bar">
-                            <div class="mockup-tab"></div>
-                            <div class="mockup-tab active"></div>
-                            <div class="mockup-tab"></div>
-                            <div class="mockup-tab"></div>
-                        </div>
+                        <img src="images/main_image.png" alt="ulTrain app main screen" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                     </div>
                 </div>
             </div>
@@ -1239,11 +1214,21 @@
         <p class="section-subtitle fade-in">A clean, focused interface designed for athletes who train by volume.</p>
         
         <div class="screenshots-container">
-            <div class="screenshot">Race Calendar</div>
-            <div class="screenshot">Training Plan</div>
-            <div class="screenshot">Volume Stats</div>
-            <div class="screenshot">Nutrition Log</div>
-            <div class="screenshot">Profile</div>
+            <div class="screenshot">
+                <img src="images/race_calendar.png" alt="Race calendar view in ulTrain" />
+            </div>
+            <div class="screenshot">
+                <img src="images/training_plan.png" alt="Training plan view in ulTrain" />
+            </div>
+            <div class="screenshot">
+                <img src="images/volume_stats.png" alt="Volume stats view in ulTrain" />
+            </div>
+            <div class="screenshot">
+                <img src="images/nutrition_log.png" alt="Nutrition log view in ulTrain" />
+            </div>
+            <div class="screenshot">
+                <img src="images/profile.png" alt="Profile view in ulTrain" />
+            </div>
         </div>
     </section>
 
@@ -1281,12 +1266,12 @@
         <div class="testimonials-grid">
             <div class="testimonial-card scale-in">
                 <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"Used ulTrain to build my entire 24-week plan for Western States. The volume progression was dialed and I PR'd by over an hour. This app gets ultra training."</p>
+                <p class="testimonial-text">"ulTrain guided every week of my build for the South Downs Way 100. The volume-focused plans kept me strong without burning out, and I arrived on the start line feeling the most prepared I've ever been."</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar">KR</div>
+                    <div class="author-avatar">BP</div>
                     <div class="author-info">
-                        <h4>Kate Rawlings</h4>
-                        <p>100-Mile Ultra Runner</p>
+                        <h4>Ben Perides</h4>
+                        <p>South Downs Way 100 Finisher</p>
                     </div>
                 </div>
             </div>
@@ -1295,9 +1280,9 @@
                 <div class="testimonial-rating">★★★★★</div>
                 <p class="testimonial-text">"I'm not a runner -- I'm a hiker. ulTrain is the first app that lets me build a real training plan for thru-hiking. The volume tracking for long days on trail is exactly what I needed."</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar">DM</div>
+                    <div class="author-avatar">KL</div>
                     <div class="author-info">
-                        <h4>Dan Moreno</h4>
+                        <h4>Kevin Lang</h4>
                         <p>Long-Distance Hiker</p>
                     </div>
                 </div>
@@ -1305,12 +1290,12 @@
             
             <div class="testimonial-card scale-in">
                 <div class="testimonial-rating">★★★★★</div>
-                <p class="testimonial-text">"Went from half marathons to my first ultra using the volume plans in ulTrain. The race finder helped me pick the perfect event. Can't recommend it enough."</p>
+                <p class="testimonial-text">"I've used ulTrain's volume-first approach for multiple ultras now, including the South Downs Way 100. The steady progression and clear cutback weeks let me stack big training blocks without breaking down."</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar">AL</div>
+                    <div class="author-avatar">DB</div>
                     <div class="author-info">
-                        <h4>Aisha Lawson</h4>
-                        <p>Trail Runner</p>
+                        <h4>Dave Brett</h4>
+                        <p>Multi-Ultra Runner</p>
                     </div>
                 </div>
             </div>
