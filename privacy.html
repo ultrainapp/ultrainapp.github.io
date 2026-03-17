@@ -348,7 +348,7 @@
       <li><a href="#how-we-use">How We Use Your Information</a></li>
       <li><a href="#data-sharing">Information Sharing</a></li>
       <li><a href="#health-data">Health &amp; Fitness Data</a></li>
-      <li><a href="#cloud-sync">Cloud Sync &amp; Firebase</a></li>
+      <li><a href="#cloud-sync">Database Storage &amp; iCloud Backup</a></li>
       <li><a href="#ai-coach">AI Coach &amp; On-Device Processing</a></li>
       <li><a href="#subscriptions">Subscriptions &amp; Payments</a></li>
       <li><a href="#data-retention">Data Retention &amp; Deletion</a></li>
@@ -360,7 +360,7 @@
   </div>
 
   <div class="highlight-box">
-    <p>The short version: ulTrain does not sell your data, does not run ads, and does not share your personal information with third parties for their own marketing purposes. Your health and training data never leaves your device unless you explicitly enable cloud backup.</p>
+    <p>The short version: ulTrain does not sell your data, does not run ads, and does not share your personal information with third parties for their own marketing purposes. Your data is saved to your account database by default and is never visible to or shared with other users — unless you explicitly choose to share it.</p>
   </div>
 
   <!-- 1. Who We Are -->
@@ -383,24 +383,24 @@
       </div>
       <h2>2. Information We Collect</h2>
     </div>
-    <p>We collect only what is necessary to provide the App's functionality.</p>
+    <p>We collect only what is necessary to provide the App's functionality. When you create an account, your data is saved to a secure database tied exclusively to your user account. No other user can see or access your data.</p>
 
     <div class="info-cards">
       <div class="info-card">
         <h4>Account Information</h4>
-        <p>If you create an account, we collect your email address and a password hash. This is used solely for authentication and account recovery.</p>
+        <p>Your email address and a password hash, used solely for authentication and account recovery. This is the key that locks your data to you.</p>
       </div>
       <div class="info-card">
         <h4>Training Data</h4>
-        <p>Runs, training plans, weekly targets, and progress you log manually within the App. Stored locally on your device unless you enable cloud sync.</p>
+        <p>Runs, training plans, weekly targets, and progress you log in the App — including distances, pace, effort ratings, and notes. Saved to your account database by default.</p>
+      </div>
+      <div class="info-card">
+        <h4>Nutrition &amp; Preferences</h4>
+        <p>Nutrition logs, food ratings, what-works notes, and app preferences (units, notification settings, etc.). All stored in your account and never shared.</p>
       </div>
       <div class="info-card">
         <h4>Health &amp; Activity Data</h4>
-        <p>With your explicit permission, the App reads activity and workout data from Apple Health. This data is never transmitted off your device.</p>
-      </div>
-      <div class="info-card">
-        <h4>Nutrition &amp; Kit Data</h4>
-        <p>Nutrition logs and kit lists you create in the App. Stored locally and synced only if you opt into cloud backup.</p>
+        <p>With your explicit permission, the App reads activity and workout data from Apple Health. This data is never transmitted to our servers or any third party.</p>
       </div>
     </div>
 
@@ -441,10 +441,16 @@
       </div>
       <h2>4. Information Sharing</h2>
     </div>
-    <p>We do not sell, rent, or trade your personal information. We do not share your data with third parties for their own marketing or commercial purposes.</p>
-    <p>The only cases in which data may be processed by a third party are:</p>
+    <p>We do not sell, rent, or trade your personal information. Your data is never visible to other users of the App unless you explicitly choose to share it.</p>
+    <p><strong>The only content shared between users is:</strong></p>
     <ul>
-      <li><strong>Firebase (Google):</strong> If you enable cloud backup, your training data is stored in Firebase Firestore and protected by Firebase Authentication. Firebase processes this data solely to store and return it to you. Google's data processing terms apply.</li>
+      <li><strong>Events (races):</strong> If you add a race to the directory and choose to make it public, that race listing becomes visible to all users. This is opt-in — you can keep races private, and you can change this at any time.</li>
+      <li><strong>Event reviews:</strong> Reviews you write for races in the directory are shared publicly within the App. Do not include personal information in reviews you wish to keep private.</li>
+    </ul>
+    <p>Everything else — your runs, training plans, nutrition logs, kit, preferences, and personal details — is strictly private to your account and never shared with other users.</p>
+    <p>The only cases where data is processed by a third party infrastructure provider are:</p>
+    <ul>
+      <li><strong>Firebase (Google):</strong> Your account data is stored in Firebase Firestore and protected by Firebase Authentication. Firebase processes this data solely to store and return it to you. Google's data processing terms apply.</li>
       <li><strong>Apple StoreKit:</strong> Subscription purchases are handled entirely by Apple. We receive only a transaction receipt confirming your subscription status — no payment card details.</li>
       <li><strong>Legal requirements:</strong> We may disclose information if required to do so by law or in response to valid legal process.</li>
     </ul>
@@ -475,17 +481,22 @@
       <div class="policy-section-icon">
         <svg viewBox="0 0 24 24"><path d="M18 10a6 6 0 0 0-11.9-1A5 5 0 0 0 7 19h11a4 4 0 0 0 0-9z"/></svg>
       </div>
-      <h2>6. Cloud Sync &amp; Firebase</h2>
+      <h2>6. Database Storage &amp; iCloud Backup</h2>
     </div>
-    <p>Cloud backup and sync is entirely optional. By default, all your data remains on your device only.</p>
-    <p>If you choose to enable cloud sync:</p>
+    <p>When you create an account, your data — including runs, plans, nutrition logs, kit, and preferences — is saved to a secure database (Firebase Firestore) tied to your account. This is the default behaviour and is what allows you to access your data when you reinstall the App or switch devices.</p>
+    <p>Your data in the database is:</p>
     <ul>
-      <li>Your training data is encrypted in transit using TLS and stored in Firebase Firestore</li>
-      <li>Access is protected by Firebase Authentication tied to your email address</li>
-      <li>Your data is stored in Google's infrastructure under Google's standard security practices</li>
-      <li>You can disable sync and delete all cloud data at any time from within the App's settings</li>
+      <li>Encrypted in transit using TLS</li>
+      <li>Accessible only by you via your authenticated account</li>
+      <li>Never visible to or shared with other users (except for race listings and reviews you explicitly make public)</li>
+      <li>Permanently deleted when you delete your account</li>
     </ul>
-    <p>Disabling cloud sync stops all future uploads. Deleting your account removes all data from Firebase servers.</p>
+    <p><strong>iCloud Backup</strong> is a separate, optional feature. Enabling it creates a backup of your data in Apple's iCloud, giving you an additional restore point. iCloud backups:</p>
+    <ul>
+      <li>Are entirely opt-in and can be disabled at any time from within the App's settings menu</li>
+      <li>Can be deleted at any time from within the App's settings menu</li>
+      <li>Are governed by Apple's iCloud Privacy Policy in addition to this policy</li>
+    </ul>
   </div>
 
   <!-- 7. AI Coach -->
@@ -526,14 +537,15 @@
       </div>
       <h2>9. Data Retention &amp; Deletion</h2>
     </div>
-    <p>Local data is retained on your device until you delete the App or manually clear it. Cloud-synced data is retained until you delete your account.</p>
+    <p>Your data is stored in our database for as long as your account exists. When your account is deleted, all data associated with your user account is permanently removed — including runs, training plans, nutrition logs, kit, preferences, race listings you added, and any reviews you wrote.</p>
     <p>To permanently delete your account and all associated data:</p>
     <ul>
       <li>Go to <strong>Settings → Account → Delete Account</strong> within the App</li>
       <li>This immediately deletes your Firebase Authentication account and all Firestore data associated with your user ID</li>
+      <li>Any iCloud backup data can also be removed from within the App's settings menu before or after account deletion</li>
       <li>Deletion is permanent and cannot be undone</li>
     </ul>
-    <p>If you delete the App without deleting your account first, your cloud data remains stored. You can request deletion by emailing us at the address in the Contact section below.</p>
+    <p>If you delete the App without first deleting your account, your database data is retained until you sign back in and delete your account, or until you contact us to request deletion.</p>
   </div>
 
   <!-- 10. Your Rights -->
@@ -589,9 +601,9 @@
     <div class="contact-card">
       <h3>Privacy Questions &amp; Requests</h3>
       <p>We take privacy seriously and aim to respond to all requests within 30 days.</p>
-      <a href="mailto:privacy@ultrain.app" class="btn-primary">
+      <a href="mailto:app@ultrain.fit" class="btn-primary">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        privacy@ultrain.app
+        app@ultrain.fit
       </a>
     </div>
   </div>
