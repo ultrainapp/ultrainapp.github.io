@@ -894,54 +894,8 @@
   <div class="hero-device">
     <div class="phone-frame">
       <div class="phone-notch"></div>
-      <div class="phone-screen">
-        <div class="ps-header">
-          <div class="ps-greeting">Good morning</div>
-          <div class="ps-name">Alex 👋</div>
-        </div>
-        <div class="ps-plan-card">
-          <div class="ps-plan-label">Active Plan</div>
-          <div class="ps-plan-name">UTMB 2025 — 100mi</div>
-          <div class="ps-progress-row">
-            <div class="ps-stat"><div class="ps-stat-val">342km</div><div class="ps-stat-lbl">Distance</div></div>
-            <div class="ps-stat"><div class="ps-stat-val">8,400m</div><div class="ps-stat-lbl">Elevation</div></div>
-            <div class="ps-stat"><div class="ps-stat-val">W12/20</div><div class="ps-stat-lbl">Week</div></div>
-          </div>
-          <div class="ps-prog-bar"><div class="ps-prog-fill"></div></div>
-        </div>
-        <div class="ps-section">
-          <div class="ps-section-title">Training Weeks</div>
-          <div class="ps-week-row">
-            <div class="ps-week-badge">12</div>
-            <div class="ps-week-info">
-              <div class="ps-week-name">Build Week</div>
-              <div class="ps-week-dist">Target: 65km · 1,400m</div>
-            </div>
-          </div>
-          <div class="ps-week-row ps-week-row2" style="margin-top:4px;">
-            <div class="ps-week-badge" style="background:#27ae60;">13</div>
-            <div class="ps-week-info">
-              <div class="ps-week-name">Rest Week</div>
-              <div class="ps-week-dist">Target: 40km · 800m</div>
-            </div>
-          </div>
-        </div>
-        <div class="ps-chart-preview">
-          <div class="ps-bar" style="height:35%;background:#3498db;"></div>
-          <div class="ps-bar" style="height:50%;background:#3498db;"></div>
-          <div class="ps-bar" style="height:45%;background:#27ae60;"></div>
-          <div class="ps-bar" style="height:65%;background:#3498db;"></div>
-          <div class="ps-bar" style="height:80%;background:#3498db;"></div>
-          <div class="ps-bar" style="height:60%;background:#27ae60;"></div>
-          <div class="ps-bar" style="height:90%;background:#3498db;"></div>
-          <div class="ps-bar" style="height:70%;background:var(--orange);opacity:1;"></div>
-        </div>
-        <div class="ps-tabbar">
-          <div class="ps-tab active"><div class="ps-tab-icon">🏠</div><div class="ps-tab-lbl">Home</div></div>
-          <div class="ps-tab"><div class="ps-tab-icon">📋</div><div class="ps-tab-lbl">Plans</div></div>
-          <div class="ps-tab"><div class="ps-tab-icon">📊</div><div class="ps-tab-lbl">Progress</div></div>
-          <div class="ps-tab"><div class="ps-tab-icon">⚙️</div><div class="ps-tab-lbl">Settings</div></div>
-        </div>
+      <div class="phone-screen" style="padding:0; overflow:hidden;">
+        <img src="screenshot-hero.png" alt="ulTrain home screen" style="width:100%; height:100%; object-fit:cover; display:block;">
       </div>
     </div>
   </div>
@@ -1039,62 +993,8 @@
     <div class="plans-device">
       <div class="phone-frame">
         <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <div class="ps-header" style="padding-bottom:14px;">
-            <div class="ps-greeting" style="font-size:0.65rem;color:rgba(255,255,255,0.6);">UTMB 2025 — 100mi</div>
-            <div class="ps-name" style="font-size:0.85rem;">Training Plan</div>
-          </div>
-          <!-- Week cards -->
-          <div style="padding:8px 10px;display:flex;flex-direction:column;gap:5px;flex:1;overflow:hidden;">
-            <div style="background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.3);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;">
-              <div style="width:6px;height:28px;background:#3498db;border-radius:3px;flex-shrink:0;"></div>
-              <div>
-                <div style="font-size:0.6rem;font-weight:700;color:white;">Week 1 — Build</div>
-                <div style="font-size:0.5rem;color:rgba(255,255,255,0.5);margin-top:1px;">Target 50km · 900m ✓ Complete</div>
-              </div>
-            </div>
-            <div style="background:rgba(39,174,96,0.2);border:1px solid rgba(39,174,96,0.3);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;">
-              <div style="width:6px;height:28px;background:#27ae60;border-radius:3px;flex-shrink:0;"></div>
-              <div>
-                <div style="font-size:0.6rem;font-weight:700;color:white;">Week 2 — Rest</div>
-                <div style="font-size:0.5rem;color:rgba(255,255,255,0.5);margin-top:1px;">Target 30km · 500m ✓ Complete</div>
-              </div>
-            </div>
-            <div style="background:rgba(52,152,219,0.2);border:1px solid rgba(52,152,219,0.3);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;">
-              <div style="width:6px;height:28px;background:#3498db;border-radius:3px;flex-shrink:0;"></div>
-              <div>
-                <div style="font-size:0.6rem;font-weight:700;color:white;">Week 3 — Build</div>
-                <div style="font-size:0.5rem;color:rgba(255,255,255,0.5);margin-top:1px;">Target 60km · 1,100m ✓ Complete</div>
-              </div>
-            </div>
-            <div style="background:rgba(230,126,34,0.3);border:1px solid rgba(230,126,34,0.4);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;border-left:3px solid var(--orange);">
-              <div style="width:6px;height:28px;background:var(--orange);border-radius:3px;flex-shrink:0;"></div>
-              <div>
-                <div style="font-size:0.6rem;font-weight:700;color:white;">Week 4 — Build ← Current</div>
-                <div style="font-size:0.5rem;color:rgba(255,255,255,0.65);margin-top:1px;">Target 65km · 1,400m · In Progress</div>
-              </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;">
-              <div style="width:6px;height:28px;background:rgba(255,255,255,0.2);border-radius:3px;flex-shrink:0;"></div>
-              <div>
-                <div style="font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.5);">Week 5 — Rest</div>
-                <div style="font-size:0.5rem;color:rgba(255,255,255,0.35);margin-top:1px;">Target 38km · 700m</div>
-              </div>
-            </div>
-            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;display:flex;align-items:center;gap:8px;">
-              <div style="width:6px;height:28px;background:rgba(255,255,255,0.15);border-radius:3px;flex-shrink:0;"></div>
-              <div>
-                <div style="font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.4);">Week 6 — Build</div>
-                <div style="font-size:0.5rem;color:rgba(255,255,255,0.3);margin-top:1px;">Target 72km · 1,600m</div>
-              </div>
-            </div>
-          </div>
-          <div class="ps-tabbar">
-            <div class="ps-tab"><div class="ps-tab-icon">🏠</div><div class="ps-tab-lbl">Home</div></div>
-            <div class="ps-tab active"><div class="ps-tab-icon">📋</div><div class="ps-tab-lbl">Plans</div></div>
-            <div class="ps-tab"><div class="ps-tab-icon">📊</div><div class="ps-tab-lbl">Progress</div></div>
-            <div class="ps-tab"><div class="ps-tab-icon">⚙️</div><div class="ps-tab-lbl">Settings</div></div>
-          </div>
+        <div class="phone-screen" style="padding:0; overflow:hidden;">
+          <img src="screenshot-plans.png" alt="ulTrain plan detail screen" style="width:100%; height:100%; object-fit:cover; display:block;">
         </div>
       </div>
     </div>
@@ -1149,69 +1049,8 @@
         <div class="wizard-badge" id="wizardBadge">6 simple steps</div>
         <div class="phone-frame">
           <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <!-- Wizard progress bar -->
-            <div style="padding:14px 14px 6px;background:linear-gradient(160deg,#1a2433,#2d1a0e);">
-              <div style="display:flex;gap:4px;margin-bottom:10px;">
-                <div style="flex:1;height:3px;background:var(--orange);border-radius:2px;"></div>
-                <div style="flex:1;height:3px;background:var(--orange);border-radius:2px;"></div>
-                <div style="flex:1;height:3px;background:var(--orange);border-radius:2px;"></div>
-                <div style="flex:1;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
-                <div style="flex:1;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
-                <div style="flex:1;height:3px;background:rgba(255,255,255,0.2);border-radius:2px;"></div>
-              </div>
-              <div style="font-size:0.42rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Step 3 of 6 · Week 1 Targets</div>
-              <!-- Icon badge -->
-              <div style="width:32px;height:32px;border-radius:50%;background:rgba(230,126,34,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
-                <span style="font-size:1rem;">🎯</span>
-              </div>
-              <div style="font-size:0.48rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px;">WEEK 1 TARGETS</div>
-              <div style="font-size:0.85rem;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1.2;margin-bottom:3px;">Starting volume</div>
-              <div style="font-size:0.47rem;color:rgba(255,255,255,0.5);line-height:1.4;">How far do you currently train each week? This becomes your Week 1 target.</div>
-            </div>
-            <!-- Sliders -->
-            <div style="padding:10px 12px;background:linear-gradient(160deg,#1a2433,#2d1a0e);flex:1;overflow:hidden;">
-              <!-- Distance card -->
-              <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;margin-bottom:8px;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-                  <span style="font-size:0.9rem;">🏃</span>
-                  <span style="font-size:0.6rem;font-weight:600;color:white;flex:1;">Week 1 distance</span>
-                  <span style="font-size:0.75rem;font-weight:800;color:var(--orange);">50 km</span>
-                </div>
-                <div style="height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin-bottom:4px;position:relative;">
-                  <div style="position:absolute;left:0;top:0;height:100%;width:42%;background:var(--orange);border-radius:2px;"></div>
-                  <div style="position:absolute;left:42%;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;"><span style="font-size:0.4rem;color:rgba(255,255,255,0.3);">10 km</span><span style="font-size:0.4rem;color:rgba(255,255,255,0.3);">200 km</span></div>
-              </div>
-              <!-- Elevation card -->
-              <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:12px;">
-                <div style="display:flex;align-items:center;gap:8px;justify-content:space-between;">
-                  <div style="display:flex;align-items:center;gap:6px;">
-                    <span style="font-size:0.9rem;">⛰️</span>
-                    <span style="font-size:0.6rem;font-weight:600;color:white;">Track elevation</span>
-                  </div>
-                  <div style="width:24px;height:14px;background:var(--orange);border-radius:7px;position:relative;">
-                    <div style="position:absolute;right:2px;top:2px;width:10px;height:10px;background:white;border-radius:50%;"></div>
-                  </div>
-                </div>
-                <div style="margin-top:10px;">
-                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                    <span style="font-size:0.55rem;color:white;">Week 1 elevation</span>
-                    <span style="font-size:0.7rem;font-weight:800;color:var(--orange);">800m</span>
-                  </div>
-                  <div style="height:4px;background:rgba(255,255,255,0.12);border-radius:2px;position:relative;">
-                    <div style="position:absolute;left:0;top:0;height:100%;width:27%;background:#F39C12;border-radius:2px;"></div>
-                    <div style="position:absolute;left:27%;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;background:white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.4);"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Nav buttons -->
-            <div style="display:flex;gap:8px;padding:10px 12px;background:linear-gradient(160deg,#1a2433,#2d1a0e);border-top:1px solid rgba(255,255,255,0.06);">
-              <div style="flex:1;padding:8px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);text-align:center;font-size:0.5rem;font-weight:600;color:rgba(255,255,255,0.6);">← Back</div>
-              <div style="flex:2;padding:8px;border-radius:20px;background:var(--orange);text-align:center;font-size:0.5rem;font-weight:700;color:white;">Next →</div>
-            </div>
+          <div class="phone-screen" style="padding:0; overflow:hidden;">
+            <img src="screenshot-wizard.png" alt="ulTrain plan setup wizard" style="width:100%; height:100%; object-fit:cover; display:block;">
           </div>
         </div>
       </div>
@@ -1382,51 +1221,8 @@
 <section class="progress-section" id="progress">
   <div class="progress-inner">
     <!-- Chart visualization -->
-    <div class="chart-demo" id="chartDemo">
-      <div class="chart-title-row">
-        <div class="chart-title">Weekly Distance (km)</div>
-        <div class="chart-pill">Last 8 weeks</div>
-      </div>
-      <div class="chart-bars" id="chartBars">
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-build" style="height:40%"></div>
-          <div class="chart-bar-lbl">W5</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-rest" style="height:25%"></div>
-          <div class="chart-bar-lbl">W6</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-build" style="height:55%"></div>
-          <div class="chart-bar-lbl">W7</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-build" style="height:65%"></div>
-          <div class="chart-bar-lbl">W8</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-rest" style="height:38%"></div>
-          <div class="chart-bar-lbl">W9</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-build" style="height:78%"></div>
-          <div class="chart-bar-lbl">W10</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-build" style="height:90%"></div>
-          <div class="chart-bar-lbl">W11</div>
-        </div>
-        <div class="chart-bar-wrap">
-          <div class="chart-bar bar-race" style="height:60%"></div>
-          <div class="chart-bar-lbl">W12</div>
-        </div>
-      </div>
-      <div class="chart-legend">
-        <div class="cl-item"><div class="cl-dot" style="background:#3498db;"></div>Build</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#27ae60;"></div>Rest</div>
-        <div class="cl-item"><div class="cl-dot" style="background:#e74c3c;"></div>Taper</div>
-        <div class="cl-item"><div class="cl-dot" style="background:var(--orange);"></div>Race</div>
-      </div>
+    <div class="chart-demo" id="chartDemo" style="padding:0; overflow:hidden; border-radius:20px;">
+      <img src="screenshot-ai.png" alt="ulTrain progress charts" style="width:100%; height:auto; display:block; border-radius:20px;">
     </div>
 
     <!-- Content -->
@@ -1470,90 +1266,7 @@
       <div class="phone-frame">
         <div class="phone-notch"></div>
         <div class="phone-screen" style="padding:0; overflow:hidden;">
-
-          <!-- Header bar -->
-          <div style="padding:12px 10px 8px; background:rgba(15,25,40,0.95); border-bottom:1px solid rgba(255,255,255,0.07);">
-            <div style="font-size:0.7rem; font-weight:800; color:white; letter-spacing:0.01em;">Event Directory</div>
-            <div style="font-size:0.46rem; color:rgba(255,255,255,0.4); margin-top:1px;">Community races, worldwide</div>
-          </div>
-
-          <!-- Search bar -->
-          <div style="padding:7px 10px;">
-            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:5px 8px; display:flex; align-items:center; gap:5px;">
-              <svg viewBox="0 0 24 24" style="width:8px;height:8px;stroke:rgba(255,255,255,0.35);fill:none;stroke-width:2.5;flex-shrink:0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <span style="font-size:0.44rem; color:rgba(255,255,255,0.3);">Search races…</span>
-            </div>
-          </div>
-
-          <!-- Race cards -->
-          <div style="padding:0 10px; display:flex; flex-direction:column; gap:6px; flex:1; overflow:hidden;">
-
-            <!-- Race 1 — approved, linked to plan -->
-            <div style="background:rgba(230,126,34,0.12); border:1px solid rgba(230,126,34,0.3); border-radius:10px; padding:8px 9px;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
-                <div style="font-size:0.58rem; font-weight:700; color:white; line-height:1.2;">Highland Fling 53</div>
-                <div style="font-size:0.38rem; font-weight:700; color:var(--orange); background:rgba(230,126,34,0.18); border-radius:6px; padding:2px 5px; flex-shrink:0;">Linked</div>
-              </div>
-              <div style="display:flex; gap:6px; align-items:center;">
-                <span style="font-size:0.42rem; color:rgba(255,255,255,0.5);">53 miles · Scotland</span>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">·</span>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">May 2026</span>
-              </div>
-              <div style="display:flex; align-items:center; gap:3px; margin-top:4px;">
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:rgba(255,255,255,0.2);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">4.1 · 24 reviews</span>
-              </div>
-            </div>
-
-            <!-- Race 2 — community submitted -->
-            <div style="background:rgba(52,152,219,0.1); border:1px solid rgba(52,152,219,0.25); border-radius:10px; padding:8px 9px;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
-                <div style="font-size:0.58rem; font-weight:700; color:white; line-height:1.2;">Lakeland 100</div>
-                <div style="font-size:0.38rem; font-weight:600; color:rgba(52,152,219,0.9); background:rgba(52,152,219,0.15); border-radius:6px; padding:2px 5px; flex-shrink:0;">Community</div>
-              </div>
-              <div style="display:flex; gap:6px; align-items:center;">
-                <span style="font-size:0.42rem; color:rgba(255,255,255,0.5);">105 miles · England</span>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">·</span>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">Jul 2026</span>
-              </div>
-              <div style="display:flex; align-items:center; gap:3px; margin-top:4px;">
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">4.8 · 17 reviews</span>
-              </div>
-            </div>
-
-            <!-- Race 3 — user submitted, pending -->
-            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:10px; padding:8px 9px;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
-                <div style="font-size:0.58rem; font-weight:700; color:rgba(255,255,255,0.8); line-height:1.2;">Glen Ogle 33</div>
-                <div style="font-size:0.38rem; font-weight:600; color:rgba(255,193,7,0.9); background:rgba(255,193,7,0.12); border-radius:6px; padding:2px 5px; flex-shrink:0;">Pending review</div>
-              </div>
-              <div style="display:flex; gap:6px; align-items:center;">
-                <span style="font-size:0.42rem; color:rgba(255,255,255,0.45);">33 miles · Scotland</span>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">·</span>
-                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">Oct 2026</span>
-              </div>
-              <div style="font-size:0.38rem; color:rgba(255,255,255,0.25); margin-top:4px;">Added by you · awaiting approval</div>
-            </div>
-
-          </div>
-
-          <!-- Add button -->
-          <div style="padding:8px 10px 10px;">
-            <div style="background:var(--orange); border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; gap:4px;">
-              <svg viewBox="0 0 24 24" style="width:8px;height:8px;stroke:white;fill:none;stroke-width:3;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              <span style="font-size:0.46rem; font-weight:700; color:white;">Add an Event</span>
-            </div>
-          </div>
-
+          <img src="screenshot-events.png" alt="ulTrain events directory" style="width:100%; height:100%; object-fit:cover; display:block;">
         </div>
       </div>
     </div>
