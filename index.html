@@ -507,11 +507,38 @@
     .pf-mini h4 { font-size: 0.88rem; font-weight: 700; color: var(--text-dark); }
     .pf-mini p { font-size: 0.78rem; color: var(--text-gray); margin-top: 3px; line-height: 1.5; }
 
+    /* ─── Events Directory ──────────────────────────────── */
+    .events-section { padding: 100px 5%; background: var(--navy); }
+    .events-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 80px;
+    }
+    .events-device { flex-shrink: 0; }
+    .events-content { flex: 1; }
+    .events-section .section-eyebrow { color: var(--orange-lt); }
+    .events-section .section-title { color: white; }
+    .events-section .section-sub { color: rgba(255,255,255,0.65); }
+    .events-features { display: flex; flex-direction: column; gap: 24px; margin-top: 40px; }
+    .ef-item { display: flex; align-items: flex-start; gap: 16px; }
+    .ef-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(230,126,34,0.15); color: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ef-icon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ef-item h4 { font-size: 0.95rem; font-weight: 700; color: white; margin-bottom: 4px; }
+    .ef-item p { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    @media (max-width: 860px) {
+      .events-inner { flex-direction: column; gap: 48px; align-items: center; }
+      .events-content { text-align: center; }
+      .ef-item { text-align: left; }
+    }
+
     /* ─── Widgets ──────────────────────────────────────── */
     .widgets-section { padding: 100px 5%; background: var(--off-white); }
     .widgets-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
-      max-width: 900px; margin: 56px auto 0;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px;
+      max-width: 780px; margin: 56px auto 0;
     }
     .widget-card {
       background: white; border-radius: 20px;
@@ -524,7 +551,7 @@
       background: linear-gradient(145deg, var(--navy), #1a2a3a);
       padding: 28px 24px 24px;
       display: flex; justify-content: center; align-items: center;
-      min-height: 190px;
+      height: 190px;
     }
     .wm-inner {
       background: #1c2b3a; border-radius: 16px;
@@ -546,6 +573,30 @@
     .wm-days-label { font-size: 0.45rem; font-weight: 500; color: rgba(255,255,255,0.45); }
     .wm-race-name { font-size: 0.55rem; font-weight: 700; color: rgba(255,255,255,0.9); text-align: center; }
     .wm-race-dist { font-size: 0.48rem; color: var(--orange); text-align: center; }
+    /* medium widget mockup */
+    .wm-inner.medium { width: auto; height: auto; padding: 10px 12px; }
+    .wm-medium { width: 260px; height: 118px; display: flex; flex-direction: row; gap: 10px; }
+    .wm-med-panel { display: flex; flex-direction: column; justify-content: space-between; }
+    .wm-med-panel.week { flex: 1.4; }
+    .wm-med-panel.plan { flex: 1; }
+    .wm-med-divider { width: 1px; background: rgba(255,255,255,0.12); margin: 4px 0; }
+    .wm-med-label { font-size: 0.42rem; font-weight: 800; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.12em; }
+    .wm-med-ring-row { display: flex; align-items: center; gap: 8px; }
+    .wm-med-ring { position: relative; width: 50px; height: 50px; flex-shrink: 0; }
+    .wm-med-ring svg { width: 50px; height: 50px; transform: rotate(-90deg); }
+    .wm-med-ring-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: #30994b; }
+    .wm-med-km { font-size: 1.05rem; font-weight: 700; color: rgba(255,255,255,0.92); line-height: 1; }
+    .wm-med-km-unit { font-size: 0.42rem; font-weight: 500; color: rgba(255,255,255,0.4); }
+    .wm-med-km-target { font-size: 0.42rem; color: rgba(255,255,255,0.35); }
+    .wm-med-runs { display: flex; align-items: center; gap: 3px; font-size: 0.42rem; color: rgba(255,255,255,0.35); }
+    .wm-med-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .wm-med-bar-fill { height: 100%; border-radius: 2px; }
+    .wm-med-pct-big { font-size: 1.6rem; font-weight: 900; color: var(--orange); line-height: 1; }
+    .wm-med-pct-pct { font-size: 0.6rem; font-weight: 700; color: rgba(230,126,34,0.7); }
+    .wm-med-complete { font-size: 0.42rem; color: rgba(255,255,255,0.35); }
+    .wm-med-weeks { font-size: 0.42rem; font-weight: 500; color: rgba(255,255,255,0.35); }
+    .wm-med-pill { display: inline-flex; align-items: center; gap: 3px; font-size: 0.42rem; font-weight: 600; color: var(--orange); background: rgba(230,126,34,0.15); border-radius: 10px; padding: 2px 6px; }
+    .wm-phase-pill { font-size: 0.42rem; font-weight: 700; color: #30994b; background: rgba(48,153,75,0.18); border: 0.5px solid rgba(48,153,75,0.35); border-radius: 10px; padding: 2px 6px; }
     .widget-info { padding: 20px 22px 22px; }
     .widget-info h3 { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
     .widget-info p { font-size: 0.82rem; color: var(--text-gray); line-height: 1.5; margin: 0; }
@@ -557,7 +608,7 @@
       text-transform: uppercase; letter-spacing: 0.06em;
     }
     @media(max-width:768px) {
-      .widgets-grid { grid-template-columns: 1fr; max-width: 340px; }
+      .widgets-grid { grid-template-columns: 1fr; max-width: 360px; }
     }
 
     /* ─── Pricing ──────────────────────────────────────── */
@@ -572,7 +623,9 @@
       background: white; border-radius: var(--radius-lg);
       padding: 36px 32px; border: 1px solid rgba(0,0,0,0.07);
       transition: transform var(--transition), box-shadow var(--transition);
+      display: flex; flex-direction: column;
     }
+    .pricing-card-body { flex: 1; }
     .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
     .pricing-card.pro {
       background: linear-gradient(145deg, var(--navy), var(--navy-lt));
@@ -654,6 +707,14 @@
     }
     .testimonial-name { font-size: 0.82rem; font-weight: 700; color: var(--text-dark); }
     .testimonial-role { font-size: 0.74rem; color: var(--text-gray); }
+
+    /* ─── App Icon ─────────────────────────────────────── */
+    .app-icon-badge {
+      width: 100px; height: 100px;
+      border-radius: 22px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+      display: block; margin: 0 auto 28px;
+    }
 
     /* ─── CTA Banner ───────────────────────────────────── */
     .cta-section {
@@ -803,7 +864,8 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#plans">Training Plans</a></li>
     <li><a href="#wizard">Plan Wizard</a></li>
-    <li><a href="#ai">AI Coach</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#ai">Personal Coach</a></li>
     <li><a href="#privacy">Privacy</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
@@ -928,8 +990,8 @@
     </div>
     <div class="feature-card">
       <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="13.5" r="1"/><circle cx="15" cy="13.5" r="1"/><line x1="12" y1="2" x2="12" y2="4"/></svg></div>
-      <h3>AI Coach</h3>
-      <p>Personalized coaching insights for every plan, week, nutrition pattern, and kit list — powered entirely on-device by Apple Intelligence. Your data never leaves your phone.</p>
+      <h3>Personal Coach</h3>
+      <p>Personalised coaching insights for every plan, week, nutrition pattern, and kit list — powered entirely on-device by Apple Intelligence. Your data never leaves your phone.</p>
       <span class="feature-badge">Pro Feature</span>
     </div>
     <div class="feature-card">
@@ -1218,7 +1280,7 @@
         <div class="ai-card-header">
           <div class="ai-avatar"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="13.5" r="1"/><circle cx="15" cy="13.5" r="1"/><line x1="12" y1="2" x2="12" y2="4"/></svg></div>
           <div>
-            <div class="ai-label">Your AI Coach</div>
+            <div class="ai-label">Your Personal Coach</div>
             <div class="ai-sublabel">Powered by Apple Intelligence</div>
           </div>
         </div>
@@ -1230,9 +1292,9 @@
     </div>
 
     <div class="ai-content">
-      <div class="section-eyebrow">AI Coach</div>
-      <h2 class="section-title">Coaching that<br>knows your training.</h2>
-      <p class="section-sub">Powered by Apple Intelligence on your device. Your data never leaves your phone — ever.</p>
+      <div class="section-eyebrow">Personal Coach</div>
+      <h2 class="section-title">Coaching that<br>knows you.</h2>
+      <p class="section-sub">Like having a coach in your pocket who's read every session, every log, every note — and it all stays on your phone, powered by Apple Intelligence.</p>
 
       <div class="ai-points">
         <div class="ai-point">
@@ -1298,8 +1360,8 @@
         </div>
         <div class="privacy-pillar">
           <div class="pp-icon"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="13.5" r="1"/><circle cx="15" cy="13.5" r="1"/><line x1="12" y1="2" x2="12" y2="4"/></svg></div>
-          <h4>On-device AI only</h4>
-          <p>The AI Coach runs entirely on your iPhone using Apple Intelligence. Your training data is never sent to any server — not ours, not Apple's cloud, nobody's.</p>
+          <h4>On-device only</h4>
+          <p>Your Personal Coach runs entirely on your iPhone using Apple Intelligence. Your training data is never sent to any server — not ours, not Apple's cloud, nobody's.</p>
         </div>
         <div class="privacy-pillar">
           <div class="pp-icon"><svg viewBox="0 0 24 24"><path d="M18 10a6 6 0 0 0-11.9-1A5 5 0 0 0 7 19h11a4 4 0 0 0 0-9z"/><line x1="12" y1="13" x2="12" y2="19"/><polyline points="9 16 12 19 15 16"/></svg></div>
@@ -1399,12 +1461,158 @@
   </div>
 </section>
 
+<!-- ───────── EVENTS DIRECTORY ───────── -->
+<section class="events-section" id="events">
+  <div class="events-inner">
+
+    <!-- Phone mockup -->
+    <div class="events-device">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" style="padding:0; overflow:hidden;">
+
+          <!-- Header bar -->
+          <div style="padding:12px 10px 8px; background:rgba(15,25,40,0.95); border-bottom:1px solid rgba(255,255,255,0.07);">
+            <div style="font-size:0.7rem; font-weight:800; color:white; letter-spacing:0.01em;">Event Directory</div>
+            <div style="font-size:0.46rem; color:rgba(255,255,255,0.4); margin-top:1px;">Community races, worldwide</div>
+          </div>
+
+          <!-- Search bar -->
+          <div style="padding:7px 10px;">
+            <div style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:5px 8px; display:flex; align-items:center; gap:5px;">
+              <svg viewBox="0 0 24 24" style="width:8px;height:8px;stroke:rgba(255,255,255,0.35);fill:none;stroke-width:2.5;flex-shrink:0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span style="font-size:0.44rem; color:rgba(255,255,255,0.3);">Search races…</span>
+            </div>
+          </div>
+
+          <!-- Race cards -->
+          <div style="padding:0 10px; display:flex; flex-direction:column; gap:6px; flex:1; overflow:hidden;">
+
+            <!-- Race 1 — approved, linked to plan -->
+            <div style="background:rgba(230,126,34,0.12); border:1px solid rgba(230,126,34,0.3); border-radius:10px; padding:8px 9px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                <div style="font-size:0.58rem; font-weight:700; color:white; line-height:1.2;">Highland Fling 53</div>
+                <div style="font-size:0.38rem; font-weight:700; color:var(--orange); background:rgba(230,126,34,0.18); border-radius:6px; padding:2px 5px; flex-shrink:0;">Linked</div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span style="font-size:0.42rem; color:rgba(255,255,255,0.5);">53 miles · Scotland</span>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">·</span>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">May 2026</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:3px; margin-top:4px;">
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:rgba(255,255,255,0.2);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">4.1 · 24 reviews</span>
+              </div>
+            </div>
+
+            <!-- Race 2 — community submitted -->
+            <div style="background:rgba(52,152,219,0.1); border:1px solid rgba(52,152,219,0.25); border-radius:10px; padding:8px 9px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                <div style="font-size:0.58rem; font-weight:700; color:white; line-height:1.2;">Lakeland 100</div>
+                <div style="font-size:0.38rem; font-weight:600; color:rgba(52,152,219,0.9); background:rgba(52,152,219,0.15); border-radius:6px; padding:2px 5px; flex-shrink:0;">Community</div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span style="font-size:0.42rem; color:rgba(255,255,255,0.5);">105 miles · England</span>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">·</span>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">Jul 2026</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:3px; margin-top:4px;">
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:#F39C12;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.35);">4.8 · 17 reviews</span>
+              </div>
+            </div>
+
+            <!-- Race 3 — user submitted, pending -->
+            <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:10px; padding:8px 9px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                <div style="font-size:0.58rem; font-weight:700; color:rgba(255,255,255,0.8); line-height:1.2;">Glen Ogle 33</div>
+                <div style="font-size:0.38rem; font-weight:600; color:rgba(255,193,7,0.9); background:rgba(255,193,7,0.12); border-radius:6px; padding:2px 5px; flex-shrink:0;">Pending review</div>
+              </div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <span style="font-size:0.42rem; color:rgba(255,255,255,0.45);">33 miles · Scotland</span>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">·</span>
+                <span style="font-size:0.38rem; color:rgba(255,255,255,0.3);">Oct 2026</span>
+              </div>
+              <div style="font-size:0.38rem; color:rgba(255,255,255,0.25); margin-top:4px;">Added by you · awaiting approval</div>
+            </div>
+
+          </div>
+
+          <!-- Add button -->
+          <div style="padding:8px 10px 10px;">
+            <div style="background:var(--orange); border-radius:8px; padding:6px; display:flex; align-items:center; justify-content:center; gap:4px;">
+              <svg viewBox="0 0 24 24" style="width:8px;height:8px;stroke:white;fill:none;stroke-width:3;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span style="font-size:0.46rem; font-weight:700; color:white;">Add an Event</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="events-content">
+      <div class="section-eyebrow">Event Directory</div>
+      <h2 class="section-title">Find your race.<br>Build your community.</h2>
+      <p class="section-sub">Browse a growing global directory of endurance events. Can't find your race? Add it yourself and share it with the community.</p>
+
+      <div class="events-features">
+        <div class="ef-item">
+          <div class="ef-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div>
+            <h4>Browse &amp; discover</h4>
+            <p>Search thousands of races by name, location, or distance. Filter to find events that match your training goal.</p>
+          </div>
+        </div>
+        <div class="ef-item">
+          <div class="ef-icon" style="background:rgba(39,174,96,0.15);color:#27ae60;">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </div>
+          <div>
+            <h4>Submit your own event</h4>
+            <p>Know a race that's missing? Submit it to the directory. Once approved, it becomes available to the whole community to train for and review.</p>
+          </div>
+        </div>
+        <div class="ef-item">
+          <div class="ef-icon" style="background:rgba(230,126,34,0.15);color:var(--orange);">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <h4>Link to your plan</h4>
+            <p>Select any event as your target race and it locks into your training plan — setting your countdown, structuring your phases, and keeping you focused.</p>
+          </div>
+        </div>
+        <div class="ef-item">
+          <div class="ef-icon" style="background:rgba(241,196,15,0.15);color:#F39C12;">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div>
+            <h4>Read &amp; write reviews</h4>
+            <p>See what other athletes say about aid stations, route marking, organisation, and mandatory kit. Leave your own review after race day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ───────── WIDGETS ───────── -->
 <section class="widgets-section" id="widgets">
   <div class="center">
     <div class="section-eyebrow">Home Screen Widgets</div>
     <h2 class="section-title">Your training,<br>at a glance.</h2>
-    <p class="section-sub">Three widgets designed to keep your goals front and centre — without opening the app.</p>
+    <p class="section-sub">Four widgets designed to keep your goals front and centre — without opening the app.</p>
   </div>
   <div class="widgets-grid">
 
@@ -1476,6 +1684,66 @@
       </div>
     </div>
 
+    <!-- Combined Progress (Medium) -->
+    <div class="widget-card">
+      <div class="widget-mockup">
+        <div class="wm-inner medium">
+          <div class="wm-medium">
+            <!-- Left panel: this week -->
+            <div class="wm-med-panel week">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <span class="wm-med-label">This Week</span>
+                <span class="wm-phase-pill">Build</span>
+              </div>
+              <div class="wm-med-ring-row">
+                <div class="wm-med-ring">
+                  <svg viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(48,153,75,0.18)" stroke-width="5.5"/>
+                    <circle cx="25" cy="25" r="20" fill="none" stroke="#30994b" stroke-width="5.5" stroke-linecap="round" stroke-dasharray="125.6" stroke-dashoffset="56.5"/>
+                  </svg>
+                  <div class="wm-med-ring-pct">55%</div>
+                </div>
+                <div>
+                  <div style="display:flex; align-items:baseline; gap:2px;">
+                    <span class="wm-med-km">38.5</span><span class="wm-med-km-unit">km</span>
+                  </div>
+                  <div class="wm-med-km-target">of 55 target</div>
+                  <div class="wm-med-runs" style="margin-top:3px;">
+                    <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:rgba(48,153,75,0.8);"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>
+                    4 runs
+                  </div>
+                </div>
+              </div>
+              <div class="wm-med-bar"><div class="wm-med-bar-fill" style="width:55%; background:#30994b;"></div></div>
+            </div>
+            <!-- Divider -->
+            <div class="wm-med-divider"></div>
+            <!-- Right panel: plan -->
+            <div class="wm-med-panel plan">
+              <span class="wm-med-label">Plan</span>
+              <div>
+                <div style="display:flex; align-items:baseline; gap:2px;">
+                  <span class="wm-med-pct-big">70</span><span class="wm-med-pct-pct">%</span>
+                </div>
+                <div class="wm-med-complete">complete</div>
+              </div>
+              <div class="wm-med-bar"><div class="wm-med-bar-fill" style="width:70%; background:#E67E22;"></div></div>
+              <div class="wm-med-weeks">8 of 16 wks</div>
+              <div class="wm-med-pill">
+                <svg viewBox="0 0 24 24" style="width:7px;height:7px;fill:currentColor;"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
+                42d
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="widget-info">
+        <div class="widget-pro-badge"><svg viewBox="0 0 24 24" style="width:10px;height:10px;fill:currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Pro</div>
+        <h3>Combined Progress</h3>
+        <p>A medium-sized widget showing this week's km progress alongside your overall plan completion — all at a glance.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1483,54 +1751,59 @@
 <section class="pricing-section" id="pricing">
   <div class="center">
     <div class="section-eyebrow">Simple Pricing</div>
-    <h2 class="section-title">Start free.<br>Go pro when you're ready.</h2>
-    <p class="section-sub">The core training tools are free forever. Unlock powerful analytics, AI coaching, and more with Pro.</p>
+    <h2 class="section-title">Try Pro free.<br>No card required.</h2>
+    <p class="section-sub">Get 7 days of ulTrain Pro completely free. The core training tools are free forever — upgrade when you're ready.</p>
   </div>
 
   <div class="pricing-grid">
     <!-- Free -->
     <div class="pricing-card">
-      <div class="pricing-tier">Free</div>
-      <div class="pricing-price">£0</div>
-      <div class="pricing-period">Forever free</div>
-      <div class="pricing-divider"></div>
-      <div class="pricing-features">
-        <div class="pf-row"><div class="pf-check">✓</div><span>Unlimited training plans</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Activity logging (runs, walks, hikes)</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Automatic phase progression</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Apple Health integration</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Kit checklists (standalone)</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Basic nutrition logging</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Dashboard & plan overview</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>iCloud backup & restore</span></div>
+      <div class="pricing-card-body">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">£0</div>
+        <div class="pricing-period">Forever free</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pf-row"><div class="pf-check">✓</div><span>Unlimited training plans</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Activity logging (runs, walks, hikes)</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Automatic phase progression</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Apple Health integration</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Kit checklists (standalone)</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Basic nutrition logging</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Dashboard & plan overview</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>iCloud backup & restore</span></div>
+        </div>
       </div>
       <a href="#download" class="pricing-cta free">Download Free</a>
     </div>
 
     <!-- Pro -->
     <div class="pricing-card pro">
-      <div class="pricing-tier">ulTrain Pro</div>
-      <div class="pricing-price">£0.99</div>
-      <div class="pricing-period">per month</div>
-      <div class="pricing-alt">or £9.99/year <span class="savings-badge">Save 16%</span></div>
-      <div class="pricing-divider"></div>
-      <div class="pricing-features">
-        <div class="pf-row"><div class="pf-check">✓</div><span>Everything in Free</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Race directory access</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Home screen widgets (3 types)</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Progress charts (distance, elevation, time)</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>AI Coach — plan & weekly insights</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>AI nutrition analysis</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>AI kit coaching</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Nutrition "What Works" insights</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Plan-linked kit management</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Phase breakdown analytics</span></div>
-        <div class="pf-row"><div class="pf-check">✓</div><span>Priority support</span></div>
+      <div class="pricing-card-body">
+        <div class="pricing-tier">ulTrain Pro</div>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(230,126,34,0.18);border:1px solid rgba(230,126,34,0.4);color:#F39C12;font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:12px;">7-Day Free Trial</div>
+        <div class="pricing-price">£1.99</div>
+        <div class="pricing-period">per month after trial</div>
+        <div class="pricing-alt">or £14.99/year <span class="savings-badge">Save 37%</span></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pf-row"><div class="pf-check">✓</div><span>Everything in Free</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Race directory access</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Home screen widgets (4 types)</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Progress charts (distance, elevation, time)</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Personal Coach — plan & weekly insights</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>AI nutrition analysis</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>AI kit coaching</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Nutrition "What Works" insights</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Plan-linked kit management</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Phase breakdown analytics</span></div>
+          <div class="pf-row"><div class="pf-check">✓</div><span>Priority support</span></div>
+        </div>
       </div>
       <a href="#download" class="pricing-cta paid">Start Pro Free Trial</a>
     </div>
   </div>
-  <p class="pricing-note">Prices shown in GBP. Subscriptions managed via App Store. Cancel anytime.</p>
+  <p class="pricing-note">7-day free trial, then auto-renews. Cancel anytime in App Store settings. Prices shown in GBP.</p>
 </section>
 
 <!-- ───────── SOCIAL PROOF ───────── -->
@@ -1580,6 +1853,7 @@
 <!-- ───────── DOWNLOAD CTA ───────── -->
 <section class="cta-section" id="download">
   <div class="hero-glow hero-glow-1" style="opacity:0.2; top:-200px; right:-200px;"></div>
+  <img src="app-icon.png" alt="ulTrain app icon" class="app-icon-badge">
   <h2>Ready to train<br><span>smarter?</span></h2>
   <p>Download ulTrain free on the App Store.</p>
   <div class="hero-actions">
@@ -1604,6 +1878,10 @@
   </div>
   <div class="footer-bottom">
     <div>© 2025 ulTrain. All rights reserved.</div>
+    <div class="footer-legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
   </div>
 </footer>
 

@@ -203,6 +203,36 @@
       line-height: 1.6; margin: 0;
     }
 
+    /* ─── Definition Rows ───────────────────────────────── */
+    .def-rows {
+      display: flex; flex-direction: column; gap: 0;
+      margin: 16px 0;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: white;
+    }
+    .def-row {
+      display: grid; grid-template-columns: 160px 1fr;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .def-row:last-child { border-bottom: none; }
+    .def-label {
+      padding: 14px 16px;
+      font-size: 0.85rem; font-weight: 700; color: var(--text-dark);
+      background: rgba(0,0,0,0.02);
+      border-right: 1px solid rgba(0,0,0,0.06);
+      display: flex; align-items: flex-start;
+    }
+    .def-desc {
+      padding: 14px 16px;
+      font-size: 0.9rem; color: var(--text-gray); line-height: 1.6;
+    }
+    @media (max-width: 700px) {
+      .def-row { grid-template-columns: 1fr; }
+      .def-label { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    }
+
     /* ─── Contact Card ──────────────────────────────────── */
     .contact-card {
       background: linear-gradient(135deg, var(--navy) 0%, #1f3045 100%);
@@ -319,9 +349,8 @@
 <nav id="mainNav">
   <a href="index.html" class="nav-logo">ul<span>Train</span></a>
   <ul class="nav-links">
-    <li><a href="index.html#features">Features</a></li>
-    <li><a href="index.html#pricing">Pricing</a></li>
-    <li><a href="index.html#privacy">Privacy</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="terms.html">Terms of Use</a></li>
   </ul>
   <a href="index.html#download" class="nav-cta">Download Free</a>
 </nav>
@@ -443,18 +472,45 @@
     </div>
     <p>We do not sell, rent, or trade your personal information. Your data is never visible to other users of the App unless you explicitly choose to share it.</p>
     <p><strong>The only content shared between users is:</strong></p>
-    <ul>
-      <li><strong>Events (races):</strong> If you add a race to the directory and choose to make it public, that race listing becomes visible to all users. This is opt-in — you can keep races private, and you can change this at any time.</li>
-      <li><strong>Event reviews:</strong> Reviews you write for races in the directory are shared publicly within the App. Do not include personal information in reviews you wish to keep private.</li>
-    </ul>
+    <div class="def-rows">
+      <div class="def-row">
+        <div class="def-label">Events (races)</div>
+        <div class="def-desc">If you add a race to the directory and choose to make it public, that race listing becomes visible to all users. This is opt-in — you can keep races private, and you can change this at any time.</div>
+      </div>
+      <div class="def-row">
+        <div class="def-label">Event reviews</div>
+        <div class="def-desc">Reviews you write for races in the directory are shared publicly within the App. Do not include personal information in reviews you wish to keep private.</div>
+      </div>
+    </div>
     <p>Everything else — your runs, training plans, nutrition logs, kit, preferences, and personal details — is strictly private to your account and never shared with other users.</p>
     <p>The only cases where data is processed by a third party infrastructure provider are:</p>
-    <ul>
-      <li><strong>Firebase (Google):</strong> Your account data is stored in Firebase Firestore and protected by Firebase Authentication. Firebase processes this data solely to store and return it to you. Google's data processing terms apply.</li>
-      <li><strong>Apple StoreKit:</strong> Subscription purchases are handled entirely by Apple. We receive only a transaction receipt confirming your subscription status — no payment card details.</li>
-      <li><strong>Legal requirements:</strong> We may disclose information if required to do so by law or in response to valid legal process.</li>
-    </ul>
+    <div class="def-rows">
+      <div class="def-row">
+        <div class="def-label">Apple StoreKit</div>
+        <div class="def-desc">Subscription purchases are handled entirely by Apple. We receive only a transaction receipt confirming your subscription status — no payment card details.</div>
+      </div>
+      <div class="def-row">
+        <div class="def-label">Legal requirements</div>
+        <div class="def-desc">We may disclose information if required to do so by law or in response to valid legal process.</div>
+      </div>
+    </div>
     <p>There are no advertising SDKs, analytics SDKs, or behavioural tracking frameworks in the App.</p>
+
+    <div class="highlight-box" style="margin-top: 32px;">
+      <p style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--orange); margin-bottom: 10px;">Data Sub-Processor Disclosure</p>
+      <p><strong>Google LLC (Firebase)</strong> acts as a data sub-processor for ulTrain. We use the following Firebase services to operate the App:</p>
+      <div class="def-rows" style="margin: 12px 0;">
+        <div class="def-row">
+          <div class="def-label">Firebase Authentication</div>
+          <div class="def-desc">Manages account creation, sign-in, and session tokens.</div>
+        </div>
+        <div class="def-row">
+          <div class="def-label">Firebase Firestore</div>
+          <div class="def-desc">Stores your training data, plans, nutrition logs, and preferences in a secure, user-isolated database.</div>
+        </div>
+      </div>
+      <p>Firebase processes your data solely on our behalf to provide these services. Firebase does not use your data for Google's own advertising or analytics purposes. Google LLC is certified under the EU–US Data Privacy Framework and operates under <a href="https://firebase.google.com/terms/data-processing-terms" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Google's Data Processing Terms</a>. For more information, see <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Firebase's Privacy Policy</a>.</p>
+    </div>
   </div>
 
   <!-- 5. Health Data -->
@@ -557,12 +613,24 @@
       <h2>10. Your Rights</h2>
     </div>
     <p>Depending on your jurisdiction, you may have rights regarding your personal data including the right to access, correct, export, or delete it. We support all of these:</p>
-    <ul>
-      <li><strong>Access &amp; Export:</strong> Your training data is visible within the App at all times. You can export it from Settings → Backup.</li>
-      <li><strong>Correction:</strong> You can edit any data directly within the App.</li>
-      <li><strong>Deletion:</strong> Use the Delete Account option in Settings, or email us and we will delete your data within 30 days.</li>
-      <li><strong>Portability:</strong> Your backup export is in a standard JSON format you can use with other tools.</li>
-    </ul>
+    <div class="def-rows">
+      <div class="def-row">
+        <div class="def-label">Access &amp; Export</div>
+        <div class="def-desc">Your training data is visible within the App at all times. You can export it from Settings → Backup.</div>
+      </div>
+      <div class="def-row">
+        <div class="def-label">Correction</div>
+        <div class="def-desc">You can edit any data directly within the App.</div>
+      </div>
+      <div class="def-row">
+        <div class="def-label">Deletion</div>
+        <div class="def-desc">Use the Delete Account option in Settings, or email us and we will delete your data within 30 days.</div>
+      </div>
+      <div class="def-row">
+        <div class="def-label">Portability</div>
+        <div class="def-desc">Your backup export is in a standard JSON format you can use with other tools.</div>
+      </div>
+    </div>
     <p>To exercise any right or make a privacy request, contact us using the details below.</p>
   </div>
 
@@ -638,6 +706,7 @@
     <div class="footer-legal">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Use</a>
+      <span style="color: rgba(255,255,255,0.3);">Powered by Firebase</span>
     </div>
   </div>
 </footer>
