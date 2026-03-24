@@ -3,713 +3,235 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — ulTrain</title>
-  <meta name="description" content="ulTrain Privacy Policy. We take your privacy seriously. Learn how we handle your training data.">
+  <title>ulTrain Privacy Policy</title>
   <style>
-    /* ─── Reset & Base ─────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange:   #E67E22;
-      --orange-lt:#F39C12;
-      --navy:     #1a2433;
-      --navy-mid: #2C3E50;
-      --navy-lt:  #34495E;
-      --slate:    #7F8C8D;
-      --silver:   #BDC3C7;
-      --white:    #FFFFFF;
-      --off-white:#F5F5F7;
-      --text-dark:#1d1d1f;
-      --text-gray:#6e6e73;
-      --radius-lg:28px;
-      --radius-md:18px;
-      --radius-sm:12px;
-      --transition:0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-
-    html { scroll-behavior: smooth; overflow-x: hidden; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-      background: var(--off-white);
-      color: var(--text-dark);
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    /* ─── Nav ──────────────────────────────────────────── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 52px;
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      transition: background var(--transition);
-    }
-    .nav-logo {
-      font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em;
-      color: var(--text-dark); text-decoration: none;
-    }
-    .nav-logo span { color: var(--orange); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.8rem; font-weight: 500; color: var(--text-gray);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--orange); }
-    .nav-cta {
-      background: var(--orange); color: white; font-size: 0.78rem;
-      font-weight: 600; padding: 7px 16px; border-radius: 20px;
-      text-decoration: none; transition: background 0.2s, transform 0.15s;
-    }
-    .nav-cta:hover { background: var(--orange-lt); transform: scale(1.03); }
-
-    /* ─── Page Hero ────────────────────────────────────── */
-    .page-hero {
-      background: linear-gradient(160deg, var(--navy) 0%, #1f3045 55%, #2d1a0e 100%);
-      padding: 120px 5% 80px;
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .hero-glow {
-      position: absolute; border-radius: 50%;
-      filter: blur(100px); pointer-events: none;
-    }
-    .hero-glow-1 {
-      width: 500px; height: 500px; opacity: 0.2;
-      background: var(--orange); top: -150px; right: -150px;
-    }
-    .hero-glow-2 {
-      width: 350px; height: 350px; opacity: 0.12;
-      background: #6A5ACD; bottom: -100px; left: -100px;
-    }
-    .page-hero .section-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(230,126,34,0.18); border: 1px solid rgba(230,126,34,0.35);
-      color: var(--orange-lt); font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 5px 14px; border-radius: 30px;
-      margin-bottom: 28px;
-    }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
-      color: white;
-    }
-    .page-hero h1 span { color: var(--orange); }
-    .page-hero .hero-sub {
-      margin-top: 20px; max-width: 560px; margin-left: auto; margin-right: auto;
-      font-size: clamp(1rem, 2.2vw, 1.15rem);
-      color: rgba(255,255,255,0.6); line-height: 1.6;
-    }
-    .page-hero .meta {
-      margin-top: 32px;
-      font-size: 0.8rem; color: rgba(255,255,255,0.35);
-    }
-
-    /* ─── Content Layout ───────────────────────────────── */
-    .policy-body {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 80px 5% 100px;
-    }
-
-    /* ─── Section Styles ───────────────────────────────── */
-    .policy-section {
-      margin-bottom: 60px;
-    }
-
-    .policy-section-header {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 28px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-    }
-
-    .policy-section-icon {
-      width: 48px; height: 48px; flex-shrink: 0;
-      background: rgba(230,126,34,0.1);
-      border: 1px solid rgba(230,126,34,0.2);
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .policy-section-icon svg {
-      width: 22px; height: 22px; stroke: var(--orange); fill: none;
-      stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
-    }
-
-    .policy-section h2 {
-      font-size: 1.35rem; font-weight: 700;
-      letter-spacing: -0.02em; color: var(--text-dark);
-    }
-
-    .policy-section p {
-      font-size: 0.97rem; color: var(--text-gray);
-      line-height: 1.75; margin-bottom: 16px;
-    }
-    .policy-section p:last-child { margin-bottom: 0; }
-
-    .policy-section ul {
-      list-style: none; margin: 16px 0; padding: 0;
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .policy-section ul li {
-      display: flex; gap: 12px; align-items: flex-start;
-      font-size: 0.97rem; color: var(--text-gray); line-height: 1.65;
-    }
-    .policy-section ul li::before {
-      content: "";
-      display: inline-block; flex-shrink: 0;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--orange); margin-top: 8px;
-    }
-
-    /* ─── Highlight Box ─────────────────────────────────── */
-    .highlight-box {
-      background: rgba(230,126,34,0.07);
-      border: 1px solid rgba(230,126,34,0.2);
-      border-radius: var(--radius-md);
-      padding: 24px 28px;
-      margin: 28px 0;
-    }
-    .highlight-box p {
-      font-size: 0.97rem; color: var(--text-dark);
-      line-height: 1.7; margin: 0;
-      font-weight: 500;
-    }
-
-    /* ─── Info Cards ────────────────────────────────────── */
-    .info-cards {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin: 24px 0;
-    }
-    .info-card {
-      background: white;
-      border: 1px solid rgba(0,0,0,0.07);
-      border-radius: var(--radius-md);
-      padding: 20px 22px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .info-card h4 {
-      font-size: 0.9rem; font-weight: 700;
-      color: var(--text-dark); margin-bottom: 8px;
-    }
-    .info-card p {
-      font-size: 0.85rem; color: var(--text-gray);
-      line-height: 1.6; margin: 0;
-    }
-
-    /* ─── Definition Rows ───────────────────────────────── */
-    .def-rows {
-      display: flex; flex-direction: column; gap: 0;
-      margin: 16px 0;
-      border: 1px solid rgba(0,0,0,0.07);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: white;
-    }
-    .def-row {
-      display: grid; grid-template-columns: 160px 1fr;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .def-row:last-child { border-bottom: none; }
-    .def-label {
-      padding: 14px 16px;
-      font-size: 0.85rem; font-weight: 700; color: var(--text-dark);
-      background: rgba(0,0,0,0.02);
-      border-right: 1px solid rgba(0,0,0,0.06);
-      display: flex; align-items: flex-start;
-    }
-    .def-desc {
-      padding: 14px 16px;
-      font-size: 0.9rem; color: var(--text-gray); line-height: 1.6;
-    }
-    @media (max-width: 700px) {
-      .def-row { grid-template-columns: 1fr; }
-      .def-label { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    }
-
-    /* ─── Contact Card ──────────────────────────────────── */
-    .contact-card {
-      background: linear-gradient(135deg, var(--navy) 0%, #1f3045 100%);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .contact-card h3 {
-      font-size: 1.3rem; font-weight: 700; color: white;
-      letter-spacing: -0.02em; margin-bottom: 12px;
-    }
-    .contact-card p {
-      font-size: 0.95rem; color: rgba(255,255,255,0.6);
-      line-height: 1.65; max-width: 440px; margin: 0 auto 24px;
-    }
-    .contact-card a.btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--orange); color: white;
-      font-size: 0.9rem; font-weight: 600; padding: 12px 26px;
-      border-radius: 50px; text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 6px 20px rgba(230,126,34,0.4);
-    }
-    .contact-card a.btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(230,126,34,0.5);
-    }
-
-    /* ─── TOC ───────────────────────────────────────────── */
-    .toc-card {
-      background: white;
-      border: 1px solid rgba(0,0,0,0.07);
-      border-radius: var(--radius-md);
-      padding: 28px 32px;
-      margin-bottom: 64px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    }
-    .toc-card h3 {
-      font-size: 0.78rem; font-weight: 700; color: var(--text-dark);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin-bottom: 18px;
-    }
-    .toc-card ol {
-      list-style: none; counter-reset: toc-counter;
-      display: flex; flex-direction: column; gap: 8px; padding: 0;
-    }
-    .toc-card ol li { counter-increment: toc-counter; }
-    .toc-card ol li a {
-      display: flex; align-items: center; gap: 12px;
-      font-size: 0.9rem; color: var(--text-gray); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .toc-card ol li a::before {
-      content: counter(toc-counter, decimal-leading-zero);
-      font-size: 0.72rem; font-weight: 700; color: var(--orange);
-      font-variant-numeric: tabular-nums; min-width: 24px;
-    }
-    .toc-card ol li a:hover { color: var(--orange); }
-
-    /* ─── Footer ───────────────────────────────────────── */
-    footer {
-      background: var(--navy); color: rgba(255,255,255,0.5);
-      padding: 50px 5% 30px;
-    }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
-      padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .footer-brand-name {
-      font-size: 1.1rem; font-weight: 800; color: white;
-      letter-spacing: -0.02em; margin-bottom: 10px;
-    }
-    .footer-brand-name span { color: var(--orange); }
-    .footer-brand-desc { font-size: 0.82rem; line-height: 1.65; }
-    .footer-col h4 {
-      font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.85);
-      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
-    }
-    .footer-col ul {
-      list-style: none; display: flex; flex-direction: column; gap: 8px;
-    }
-    .footer-col a {
-      font-size: 0.82rem; color: rgba(255,255,255,0.5);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--orange); }
-    .footer-bottom {
-      max-width: 1100px; margin: 0 auto; padding-top: 24px;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.75rem;
-    }
-    .footer-legal { display: flex; gap: 20px; }
-    .footer-legal a {
-      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
-    }
-    .footer-legal a:hover { color: rgba(255,255,255,0.7); }
-
-    /* ─── Responsive ────────────────────────────────────── */
-    @media (max-width: 700px) {
-      .nav-links { display: none; }
-      .info-cards { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr; gap: 30px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-      .contact-card { padding: 28px 20px; }
-      .policy-body { padding: 60px 5% 80px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; color: #1c1c1e; line-height: 1.7; }
+    h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.25rem; margin-top: 2.5rem; border-bottom: 1px solid #e5e5ea; padding-bottom: 0.4rem; }
+    h3 { font-size: 1rem; margin-top: 1.5rem; color: #3a3a3c; }
+    p, li { font-size: 0.95rem; color: #3a3a3c; }
+    ul { padding-left: 1.4rem; }
+    .meta { color: #8e8e93; font-size: 0.875rem; margin-bottom: 2rem; }
+    .summary { background: #f2f2f7; border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.9rem; }
+    a { color: #007aff; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #000; color: #f2f2f7; }
+      h3 { color: #aeaeb2; }
+      p, li { color: #aeaeb2; }
+      .summary { background: #1c1c1e; }
     }
   </style>
 </head>
 <body>
 
-<!-- ───────── NAV ───────── -->
-<nav id="mainNav">
-  <a href="index.html" class="nav-logo">ul<span>Train</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="terms.html">Terms of Use</a></li>
-  </ul>
-  <a href="index.html#download" class="nav-cta">Download Free</a>
-</nav>
+<h1>Privacy Policy</h1>
+<p class="meta">Last updated: March 2026 &nbsp;·&nbsp; Effective: March 2026</p>
 
-<!-- ───────── PAGE HERO ───────── -->
-<div class="page-hero">
-  <div class="hero-glow hero-glow-1"></div>
-  <div class="hero-glow hero-glow-2"></div>
-  <div class="section-eyebrow">Legal</div>
-  <h1>Privacy <span>Policy</span></h1>
-  <p class="hero-sub">We built ulTrain on a simple foundation: your training data belongs to you. Here's exactly how we handle it.</p>
-  <p class="meta">Last updated: March 2026 &nbsp;·&nbsp; Effective: March 2026</p>
+<p><strong>We built ulTrain on a simple foundation: your training data belongs to you. Here's exactly how we handle it.</strong></p>
+
+<div class="summary">
+  <strong>The short version:</strong> ulTrain does not sell your data, does not run ads, and does not share your personal information with third parties for their own marketing purposes. Your data is saved to your account database by default and is never visible to or shared with other users — unless you explicitly choose to share it.
 </div>
 
-<!-- ───────── POLICY CONTENT ───────── -->
-<div class="policy-body">
+<h2>Contents</h2>
+<ol>
+  <li><a href="#who">Who We Are</a></li>
+  <li><a href="#collect">Information We Collect</a></li>
+  <li><a href="#use">How We Use Your Information</a></li>
+  <li><a href="#sharing">Information Sharing</a></li>
+  <li><a href="#health">Health &amp; Fitness Data</a></li>
+  <li><a href="#storage">Database Storage &amp; iCloud Backup</a></li>
+  <li><a href="#ai">AI Coach &amp; On-Device Processing</a></li>
+  <li><a href="#subscriptions">Subscriptions &amp; Payments</a></li>
+  <li><a href="#retention">Data Retention &amp; Deletion</a></li>
+  <li><a href="#rights">Your Rights</a></li>
+  <li><a href="#children">Children's Privacy</a></li>
+  <li><a href="#appstore">App Store Data Disclosure</a></li>
+  <li><a href="#changes">Changes to This Policy</a></li>
+  <li><a href="#contact">Contact Us</a></li>
+</ol>
 
-  <!-- Table of Contents -->
-  <div class="toc-card">
-    <h3>Contents</h3>
-    <ol>
-      <li><a href="#who-we-are">Who We Are</a></li>
-      <li><a href="#data-we-collect">Information We Collect</a></li>
-      <li><a href="#how-we-use">How We Use Your Information</a></li>
-      <li><a href="#data-sharing">Information Sharing</a></li>
-      <li><a href="#health-data">Health &amp; Fitness Data</a></li>
-      <li><a href="#cloud-sync">Database Storage &amp; iCloud Backup</a></li>
-      <li><a href="#ai-coach">AI Coach &amp; On-Device Processing</a></li>
-      <li><a href="#subscriptions">Subscriptions &amp; Payments</a></li>
-      <li><a href="#data-retention">Data Retention &amp; Deletion</a></li>
-      <li><a href="#your-rights">Your Rights</a></li>
-      <li><a href="#children">Children's Privacy</a></li>
-      <li><a href="#changes">Changes to This Policy</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ol>
-  </div>
+<h2 id="who">1. Who We Are</h2>
+<p>ulTrain is an iOS application developed and operated as an independent app. References to "we," "us," or "our" in this policy refer to the developer of ulTrain.</p>
+<p>This Privacy Policy explains how we collect, use, and protect information when you use the ulTrain app ("App") on your iOS device. By using the App, you agree to the practices described in this policy.</p>
 
-  <div class="highlight-box">
-    <p>The short version: ulTrain does not sell your data, does not run ads, and does not share your personal information with third parties for their own marketing purposes. Your data is saved to your account database by default and is never visible to or shared with other users — unless you explicitly choose to share it.</p>
-  </div>
+<h2 id="collect">2. Information We Collect</h2>
+<p>We collect only what is necessary to provide the App's functionality. When you create an account, your data is saved to a secure database tied exclusively to your user account. No other user can see or access your data unless you explicitly choose to share it.</p>
 
-  <!-- 1. Who We Are -->
-  <div class="policy-section" id="who-we-are">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      </div>
-      <h2>1. Who We Are</h2>
-    </div>
-    <p>ulTrain is an iOS application developed and operated as an independent app. References to "we," "us," or "our" in this policy refer to the developer of ulTrain.</p>
-    <p>This Privacy Policy explains how we collect, use, and protect information when you use the ulTrain app ("App") on your iOS device. By using the App, you agree to the practices described in this policy.</p>
-  </div>
+<h3>Account Information</h3>
+<p>Your email address and a hashed password, used solely for authentication and account recovery. This is the key that locks your data to you.</p>
 
-  <!-- 2. Data We Collect -->
-  <div class="policy-section" id="data-we-collect">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      </div>
-      <h2>2. Information We Collect</h2>
-    </div>
-    <p>We collect only what is necessary to provide the App's functionality. When you create an account, your data is saved to a secure database tied exclusively to your user account. No other user can see or access your data.</p>
+<h3>Profile Information</h3>
+<p>Your first name, last name, and optionally your date of birth, used to personalise the app experience and generate age-appropriate training insights. Your date of birth is optional and can be omitted during onboarding. If you choose to add a profile photo, it is stored securely in your account.</p>
 
-    <div class="info-cards">
-      <div class="info-card">
-        <h4>Account Information</h4>
-        <p>Your email address and a password hash, used solely for authentication and account recovery. This is the key that locks your data to you.</p>
-      </div>
-      <div class="info-card">
-        <h4>Training Data</h4>
-        <p>Runs, training plans, weekly targets, and progress you log in the App — including distances, pace, effort ratings, and notes. Saved to your account database by default.</p>
-      </div>
-      <div class="info-card">
-        <h4>Nutrition &amp; Preferences</h4>
-        <p>Nutrition logs, food ratings, what-works notes, and app preferences (units, notification settings, etc.). All stored in your account and never shared.</p>
-      </div>
-      <div class="info-card">
-        <h4>Health &amp; Activity Data</h4>
-        <p>With your explicit permission, the App reads activity and workout data from Apple Health. This data is never transmitted to our servers or any third party.</p>
-      </div>
-    </div>
+<h3>Training Data</h3>
+<p>Runs, training plans, weekly targets, and progress you log in the App — including distances, durations, elevation, pace, effort ratings, activity type, and notes. This data is saved to your account and forms the core of the App's functionality.</p>
 
-    <p>We do <strong>not</strong> collect:</p>
-    <ul>
-      <li>Precise location or GPS data</li>
-      <li>Advertising identifiers or device fingerprints</li>
-      <li>Browsing history or cross-app activity</li>
-      <li>Contacts, photos, camera, or microphone data</li>
-      <li>Any data not directly related to your training</li>
-    </ul>
-  </div>
+<h3>Health &amp; Activity Data</h3>
+<p>With your explicit permission, the App reads workout and activity data from Apple Health. When you import a workout, the following data points from that workout are stored in your account: distance, duration, elevation, heart rate (average and maximum), cadence, active calories, and VO2 max (if available). This data is stored locally on your device and synced to your secure account database so it is available if you reinstall the App or switch devices. See <a href="#health">Section 5</a> for full details.</p>
 
-  <!-- 3. How We Use Your Information -->
-  <div class="policy-section" id="how-we-use">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <h2>3. How We Use Your Information</h2>
-    </div>
-    <p>Your information is used exclusively to provide and improve the App's core features:</p>
-    <ul>
-      <li>Displaying your training plans, runs, progress charts, and statistics</li>
-      <li>Enabling the AI Coach to generate personalised training insights on-device</li>
-      <li>Sending push notifications about plan reminders and activity imports (only if you grant permission)</li>
-      <li>Restoring your data from cloud backup when you reinstall or switch devices (only if cloud sync is enabled)</li>
-      <li>Processing in-app subscription purchases through Apple's StoreKit</li>
-    </ul>
-    <p>We do not use your data for advertising, profiling, or any commercial purpose beyond operating the App.</p>
-  </div>
+<h3>Nutrition Data</h3>
+<p>Nutrition logs, food and supplement ratings, and custom nutrition items you create. Stored in your account and never shared with other users.</p>
 
-  <!-- 4. Information Sharing -->
-  <div class="policy-section" id="data-sharing">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      </div>
-      <h2>4. Information Sharing</h2>
-    </div>
-    <p>We do not sell, rent, or trade your personal information. Your data is never visible to other users of the App unless you explicitly choose to share it.</p>
-    <p><strong>The only content shared between users is:</strong></p>
-    <div class="def-rows">
-      <div class="def-row">
-        <div class="def-label">Events (races)</div>
-        <div class="def-desc">If you add a race to the directory and choose to make it public, that race listing becomes visible to all users. This is opt-in — you can keep races private, and you can change this at any time.</div>
-      </div>
-      <div class="def-row">
-        <div class="def-label">Event reviews</div>
-        <div class="def-desc">Reviews you write for races in the directory are shared publicly within the App. Do not include personal information in reviews you wish to keep private.</div>
-      </div>
-    </div>
-    <p>Everything else — your runs, training plans, nutrition logs, kit, preferences, and personal details — is strictly private to your account and never shared with other users.</p>
-    <p>The only cases where data is processed by a third party infrastructure provider are:</p>
-    <div class="def-rows">
-      <div class="def-row">
-        <div class="def-label">Apple StoreKit</div>
-        <div class="def-desc">Subscription purchases are handled entirely by Apple. We receive only a transaction receipt confirming your subscription status — no payment card details.</div>
-      </div>
-      <div class="def-row">
-        <div class="def-label">Legal requirements</div>
-        <div class="def-desc">We may disclose information if required to do so by law or in response to valid legal process.</div>
-      </div>
-    </div>
-    <p>There are no advertising SDKs, analytics SDKs, or behavioural tracking frameworks in the App.</p>
+<h3>Kit &amp; Equipment Data</h3>
+<p>Kit lists, individual item names, weights, and packing status you record for race preparation. Stored in your account and never shared.</p>
 
-    <div class="highlight-box" style="margin-top: 32px;">
-      <p style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--orange); margin-bottom: 10px;">Data Sub-Processor Disclosure</p>
-      <p><strong>Google LLC (Firebase)</strong> acts as a data sub-processor for ulTrain. We use the following Firebase services to operate the App:</p>
-      <div class="def-rows" style="margin: 12px 0;">
-        <div class="def-row">
-          <div class="def-label">Firebase Authentication</div>
-          <div class="def-desc">Manages account creation, sign-in, and session tokens.</div>
-        </div>
-        <div class="def-row">
-          <div class="def-label">Firebase Firestore</div>
-          <div class="def-desc">Stores your training data, plans, nutrition logs, and preferences in a secure, user-isolated database.</div>
-        </div>
-      </div>
-      <p>Firebase processes your data solely on our behalf to provide these services. Firebase does not use your data for Google's own advertising or analytics purposes. Google LLC is certified under the EU–US Data Privacy Framework and operates under <a href="https://firebase.google.com/terms/data-processing-terms" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Google's Data Processing Terms</a>. For more information, see <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Firebase's Privacy Policy</a>.</p>
-    </div>
-  </div>
+<h3>Race &amp; Event Data</h3>
+<p>If you choose to submit a race or event to the community directory, the following information is stored and visible to all users of the App: race name, date, distance, location (city, region, country), organiser name, contact website, and activity type. Your display name and email address are also stored on the race record and are visible to the app's administrators for moderation purposes, but are not displayed publicly to other users.</p>
+<p>If you write a review of a race, your first name and the review content (ratings and written comments) are visible to all users of the App. Do not include sensitive personal information in reviews you wish to keep private.</p>
 
-  <!-- 5. Health Data -->
-  <div class="policy-section" id="health-data">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </div>
-      <h2>5. Health &amp; Fitness Data</h2>
-    </div>
-    <p>ulTrain can read workout and activity data from Apple Health to automatically import your completed activities into your training plan. This is entirely opt-in and requires you to grant explicit permission through the standard iOS Health permission dialog.</p>
-    <ul>
-      <li>Health data is read directly from HealthKit on your device</li>
-      <li>It is never transmitted to our servers or any third party</li>
-      <li>It is stored locally on your device within the App's data store</li>
-      <li>You can revoke Health access at any time in iOS Settings → Privacy &amp; Security → Health</li>
-    </ul>
-    <p>We comply with Apple's HealthKit guidelines, which prohibit using health data for advertising or selling it to data brokers.</p>
-  </div>
+<h3>App Preferences &amp; Settings</h3>
+<p>Unit preferences (km/miles), notification settings, colour scheme, training defaults, and other configuration choices. Stored in your account to persist across devices.</p>
 
-  <!-- 6. Cloud Sync -->
-  <div class="policy-section" id="cloud-sync">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M18 10a6 6 0 0 0-11.9-1A5 5 0 0 0 7 19h11a4 4 0 0 0 0-9z"/></svg>
-      </div>
-      <h2>6. Database Storage &amp; iCloud Backup</h2>
-    </div>
-    <p>When you create an account, your data — including runs, plans, nutrition logs, kit, and preferences — is saved to a secure database (Firebase Firestore) tied to your account. This is the default behaviour and is what allows you to access your data when you reinstall the App or switch devices.</p>
-    <p>Your data in the database is:</p>
-    <ul>
-      <li>Encrypted in transit using TLS</li>
-      <li>Accessible only by you via your authenticated account</li>
-      <li>Never visible to or shared with other users (except for race listings and reviews you explicitly make public)</li>
-      <li>Permanently deleted when you delete your account</li>
-    </ul>
-    <p><strong>iCloud Backup</strong> is a separate, optional feature. Enabling it creates a backup of your data in Apple's iCloud, giving you an additional restore point. iCloud backups:</p>
-    <ul>
-      <li>Are entirely opt-in and can be disabled at any time from within the App's settings menu</li>
-      <li>Can be deleted at any time from within the App's settings menu</li>
-      <li>Are governed by Apple's iCloud Privacy Policy in addition to this policy</li>
-    </ul>
-  </div>
+<h3>Notification Permissions</h3>
+<p>If you grant permission, the App may send local push notifications for plan reminders and HealthKit activity imports. We do not use remote push notifications. Notification permission status is managed by iOS and is not transmitted to our servers.</p>
 
-  <!-- 7. AI Coach -->
-  <div class="policy-section" id="ai-coach">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </div>
-      <h2>7. AI Coach &amp; On-Device Processing</h2>
-    </div>
-    <p>The AI Coach feature generates personalised training insights and recommendations. This feature is powered by on-device machine learning using Apple's on-device AI framework — no training data, prompts, or responses are sent to any external server.</p>
-    <ul>
-      <li>All AI inference runs locally on your iPhone</li>
-      <li>Your training context is never transmitted to us or Apple's cloud</li>
-      <li>The feature requires a device that supports Apple Intelligence</li>
-    </ul>
-    <p>This means the AI Coach works completely privately, with no data leaving your device at any point.</p>
-  </div>
+<h3>Widget Data</h3>
+<p>If you use the ulTrain widget, a snapshot of your active training plan (plan name, race name, progress percentage, current week targets) is written to a shared App Group storage area on your device so the widget can display it on your Home Screen or Lock Screen. This data does not leave your device via the widget.</p>
 
-  <!-- 8. Subscriptions -->
-  <div class="policy-section" id="subscriptions">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      </div>
-      <h2>8. Subscriptions &amp; Payments</h2>
-    </div>
-    <p>ulTrain offers optional premium subscriptions managed entirely through Apple's App Store. All billing is handled by Apple — we never receive, process, or store your payment card details.</p>
-    <p>We receive only a transaction receipt from Apple confirming your subscription status. This is used solely to unlock premium features within the App.</p>
-    <p>For billing questions, cancellations, or refunds, please manage your subscription through the App Store or contact Apple Support.</p>
-  </div>
+<h3>Subscription Status</h3>
+<p>Whether you hold an active ulTrain Pro subscription, managed via Apple StoreKit. We do not store payment details. See <a href="#subscriptions">Section 8</a>.</p>
 
-  <!-- 9. Data Retention -->
-  <div class="policy-section" id="data-retention">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-      </div>
-      <h2>9. Data Retention &amp; Deletion</h2>
-    </div>
-    <p>Your data is stored in our database for as long as your account exists. When your account is deleted, all data associated with your user account is permanently removed — including runs, training plans, nutrition logs, kit, preferences, race listings you added, and any reviews you wrote.</p>
-    <p>To permanently delete your account and all associated data:</p>
-    <ul>
-      <li>Go to <strong>Settings → Account → Delete Account</strong> within the App</li>
-      <li>This immediately deletes your Firebase Authentication account and all Firestore data associated with your user ID</li>
-      <li>Any iCloud backup data can also be removed from within the App's settings menu before or after account deletion</li>
-      <li>Deletion is permanent and cannot be undone</li>
-    </ul>
-    <p>If you delete the App without first deleting your account, your database data is retained until you sign back in and delete your account, or until you contact us to request deletion.</p>
-  </div>
+<p><strong>We do not collect:</strong></p>
+<ul>
+  <li>Precise GPS or location data</li>
+  <li>Advertising identifiers or device fingerprints</li>
+  <li>Browsing history or cross-app activity</li>
+  <li>Contacts or calendar data</li>
+  <li>Camera or microphone data</li>
+  <li>Any data not directly related to your training or account</li>
+</ul>
 
-  <!-- 10. Your Rights -->
-  <div class="policy-section" id="your-rights">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <h2>10. Your Rights</h2>
-    </div>
-    <p>Depending on your jurisdiction, you may have rights regarding your personal data including the right to access, correct, export, or delete it. We support all of these:</p>
-    <div class="def-rows">
-      <div class="def-row">
-        <div class="def-label">Access &amp; Export</div>
-        <div class="def-desc">Your training data is visible within the App at all times. You can export it from Settings → Backup.</div>
-      </div>
-      <div class="def-row">
-        <div class="def-label">Correction</div>
-        <div class="def-desc">You can edit any data directly within the App.</div>
-      </div>
-      <div class="def-row">
-        <div class="def-label">Deletion</div>
-        <div class="def-desc">Use the Delete Account option in Settings, or email us and we will delete your data within 30 days.</div>
-      </div>
-      <div class="def-row">
-        <div class="def-label">Portability</div>
-        <div class="def-desc">Your backup export is in a standard JSON format you can use with other tools.</div>
-      </div>
-    </div>
-    <p>To exercise any right or make a privacy request, contact us using the details below.</p>
-  </div>
+<h2 id="use">3. How We Use Your Information</h2>
+<p>Your information is used exclusively to provide and improve the App's core features:</p>
+<ul>
+  <li>Displaying your training plans, runs, progress charts, and statistics</li>
+  <li>Enabling the AI Coach to generate personalised training insights on your device</li>
+  <li>Showing your training plan progress in Home Screen and Lock Screen widgets</li>
+  <li>Sending local push notifications about plan reminders and activity imports (only if you grant permission)</li>
+  <li>Restoring your data when you reinstall the App or switch devices (requires account sign-in)</li>
+  <li>Processing in-app subscription purchases through Apple's StoreKit</li>
+  <li>Moderating the community race directory to remove inaccurate or inappropriate submissions</li>
+</ul>
+<p>We do not use your data for advertising, profiling, or any commercial purpose beyond operating the App.</p>
 
-  <!-- 11. Children -->
-  <div class="policy-section" id="children">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </div>
-      <h2>11. Children's Privacy</h2>
-    </div>
-    <p>ulTrain is not directed at children under 13 years of age. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us and we will delete it promptly.</p>
-  </div>
+<h2 id="sharing">4. Information Sharing</h2>
+<p>We do not sell, rent, or trade your personal information. Your data is never visible to other users of the App unless you explicitly choose to share it.</p>
 
-  <!-- 12. Changes -->
-  <div class="policy-section" id="changes">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-      </div>
-      <h2>12. Changes to This Policy</h2>
-    </div>
-    <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date at the top of this page and, where appropriate, notify you through the App.</p>
-    <p>Your continued use of the App after any changes constitutes your acceptance of the updated policy. We encourage you to review this page periodically.</p>
-  </div>
+<h3>Content shared with other users</h3>
+<p><strong>Race listings:</strong> If you add a race to the directory and choose to make it public, that listing (race name, date, distance, location, organiser) becomes visible to all users. This is opt-in and can be changed at any time from Settings → My Events.</p>
+<p><strong>Race reviews:</strong> Reviews you submit include your first name and are visible to all users in the race directory. Do not include personal information in reviews you wish to keep private.</p>
 
-  <!-- 13. Contact -->
-  <div class="policy-section" id="contact">
-    <div class="policy-section-header">
-      <div class="policy-section-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </div>
-      <h2>13. Contact Us</h2>
-    </div>
-    <p>If you have questions about this Privacy Policy, want to exercise your data rights, or need to report a privacy concern, please get in touch.</p>
-    <div class="contact-card">
-      <h3>Privacy Questions &amp; Requests</h3>
-      <p>We take privacy seriously and aim to respond to all requests within 30 days.</p>
-      <a href="mailto:app@ultrain.fit" class="btn-primary">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        app@ultrain.fit
-      </a>
-    </div>
-  </div>
+<h3>Content visible to administrators only</h3>
+<p>The App has an administrator role for moderation of the race directory. Administrators can see the name and email address associated with race submissions to verify authenticity and contact submitters if needed. Administrators cannot see your training data, runs, nutrition logs, or any other private data.</p>
 
-</div>
+<h3>Everything else is private</h3>
+<p>Your runs, training plans, nutrition logs, kit lists, preferences, and personal profile details are strictly private to your account and are never shared with other users or third parties, except as described in this section.</p>
 
-<!-- ───────── FOOTER ───────── -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand-name">ul<span>Train</span></div>
-      <p class="footer-brand-desc">The intelligent training companion for endurance athletes. Train with data. Race with confidence.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Product</h4>
-      <ul>
-        <li><a href="index.html#features">Features</a></li>
-        <li><a href="index.html#pricing">Pricing</a></li>
-        <li><a href="index.html#download">Download</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms of Use</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>© 2026 ulTrain. All rights reserved.</div>
-    <div class="footer-legal">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Use</a>
-      <span style="color: rgba(255,255,255,0.3);">Powered by Firebase</span>
-    </div>
-  </div>
-</footer>
+<h3>Infrastructure sub-processors</h3>
+<p>The only third-party services that process your data are:</p>
+<p><strong>Google LLC (Firebase)</strong> — acts as a data sub-processor. We use Firebase Authentication to manage account sign-in and session security, and Firebase Firestore to store your training data in a secure, user-isolated cloud database. Firebase processes your data solely on our behalf and does not use it for Google's own advertising or analytics. Google LLC is certified under the EU–US Data Privacy Framework and operates under Google's Data Processing Terms. See <a href="https://firebase.google.com/support/privacy" target="_blank">Firebase's Privacy Policy</a>.</p>
+<p><strong>Apple Inc. (StoreKit / App Store)</strong> — handles all subscription billing. We receive only a transaction receipt confirming your subscription status. Apple's processing is governed by <a href="https://www.apple.com/legal/privacy/" target="_blank">Apple's Privacy Policy</a>.</p>
+<p><strong>Legal requirements:</strong> We may disclose information if required to do so by law or in response to valid legal process.</p>
+<p>There are no advertising SDKs, analytics SDKs, or behavioural tracking frameworks in the App.</p>
+
+<h2 id="health">5. Health &amp; Fitness Data</h2>
+<p>ulTrain can read workout and activity data from Apple Health to automatically import your completed activities into your training log. This is entirely opt-in and requires you to grant explicit permission through the standard iOS Health permission dialog.</p>
+<p>When you import a workout from Apple Health, the following data is read from HealthKit and stored in your ulTrain account (locally on your device and in your secure account database):</p>
+<ul>
+  <li>Distance and duration</li>
+  <li>Elevation gain</li>
+  <li>Heart rate (average and maximum)</li>
+  <li>Cadence (average steps per minute)</li>
+  <li>Active calories burned</li>
+  <li>VO2 max (if recorded by your device)</li>
+  <li>Source app name (e.g. "Apple Watch" or "Strava")</li>
+</ul>
+<p>This imported health data is stored in your account database so it is available if you reinstall the App or switch devices. It is never shared with other users, sold, or used for advertising. It is never transmitted to any third party other than being stored in your own user-isolated Firebase account database as described in Section 4.</p>
+<p>We comply fully with Apple's HealthKit guidelines, which prohibit using health data for advertising, selling it to data brokers, or sharing it with third parties for their own purposes.</p>
+<p>You can revoke Health access at any time in <strong>iOS Settings → Privacy &amp; Security → Health → ulTrain</strong>. Revoking access does not delete previously imported data from your account; you can manage that within the App.</p>
+
+<h2 id="storage">6. Database Storage &amp; iCloud Backup</h2>
+<p>When you create an account, your data is saved to a secure cloud database (Firebase Firestore) tied to your account. This allows you to access your data when you reinstall the App or switch devices.</p>
+<p>Your data in the database is:</p>
+<ul>
+  <li>Encrypted in transit using TLS</li>
+  <li>Accessible only via your authenticated account</li>
+  <li>Never visible to or shared with other users (except for race listings and reviews you explicitly make public)</li>
+  <li>Permanently deleted when you delete your account</li>
+</ul>
+<p><strong>iCloud Backup</strong> is a separate, optional feature. Enabling it creates an additional backup of your data in Apple's iCloud. iCloud backups are entirely opt-in, can be disabled at any time from within the App's settings, and are governed by Apple's iCloud Privacy Policy in addition to this policy.</p>
+
+<h2 id="ai">7. AI Coach &amp; On-Device Processing</h2>
+<p>The AI Coach feature generates personalised training insights and recommendations using on-device machine learning powered by Apple's on-device AI framework (Apple Intelligence). No training data, prompts, or generated responses are sent to any external server — including our own.</p>
+<ul>
+  <li>All AI inference runs locally on your iPhone</li>
+  <li>Your training context never leaves your device during AI processing</li>
+  <li>The generated coaching summaries are cached in your account database for persistence, but the inference itself is fully private</li>
+  <li>This feature requires a device that supports Apple Intelligence</li>
+</ul>
+
+<h2 id="subscriptions">8. Subscriptions &amp; Payments</h2>
+<p>ulTrain offers optional auto-renewable premium subscriptions (ulTrain Pro) managed entirely through Apple's App Store. All billing is handled by Apple — we never receive, process, or store your payment card details.</p>
+<p>We receive only a transaction receipt from Apple confirming your subscription status, which is used solely to unlock premium features within the App. Auto-renewable subscriptions renew automatically at the end of each period unless cancelled at least 24 hours before the renewal date. You can manage or cancel your subscription at any time in your Apple ID settings.</p>
+<p>For billing questions, cancellations, or refunds, manage your subscription through the App Store or contact Apple Support.</p>
+
+<h2 id="retention">9. Data Retention &amp; Deletion</h2>
+<p>Your data is stored in our database for as long as your account exists. When your account is deleted, all data associated with your user ID is permanently removed — including runs, training plans, nutrition logs, kit lists, preferences, race listings you submitted, and any reviews you wrote.</p>
+<p>To permanently delete your account and all associated data:</p>
+<ul>
+  <li>Go to <strong>Settings → Account → Delete Account</strong> within the App</li>
+  <li>This immediately deletes your Firebase Authentication account and all Firestore data associated with your user ID</li>
+  <li>Any iCloud backup data can be removed from within the App's settings menu</li>
+  <li>Deletion is permanent and cannot be undone</li>
+</ul>
+<p>If you delete the App without first deleting your account, your database data is retained until you sign back in and delete your account, or until you contact us to request deletion.</p>
+
+<h2 id="rights">10. Your Rights</h2>
+<p>Depending on your jurisdiction, you may have rights regarding your personal data including the right to access, correct, export, or delete it. We support all of these:</p>
+<h3>Access &amp; Export</h3>
+<p>Your training data is visible within the App at all times. You can export it from Settings → Backup.</p>
+<h3>Correction</h3>
+<p>You can edit any data directly within the App.</p>
+<h3>Deletion</h3>
+<p>Use the Delete Account option in Settings, or email us and we will delete your data within 30 days.</p>
+<h3>Portability</h3>
+<p>Your backup export is in a standard JSON format you can use with other tools.</p>
+<p>To exercise any right or make a privacy request, contact us using the details in Section 14.</p>
+
+<h2 id="children">11. Children's Privacy</h2>
+<p>ulTrain is not directed at children under 13 years of age. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us and we will delete it promptly.</p>
+
+<h2 id="appstore">12. App Store Data Disclosure</h2>
+<p>In accordance with Apple App Store requirements, the following summarises the data types the App collects and their purposes:</p>
+
+<table style="width:100%; border-collapse:collapse; font-size:0.875rem; margin-top:0.75rem;">
+  <thead>
+    <tr style="background:#f2f2f7; text-align:left;">
+      <th style="padding:8px 12px; border:1px solid #e5e5ea;">Data Type</th>
+      <th style="padding:8px 12px; border:1px solid #e5e5ea;">Used For</th>
+      <th style="padding:8px 12px; border:1px solid #e5e5ea;">Linked to Identity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Email address</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Authentication, account recovery</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Name</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">App personalisation, review display</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Date of birth (optional)</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Age-appropriate training insights</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Profile photo (optional)</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Profile display</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Health &amp; fitness data</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Training log, coaching insights</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">User-generated content (reviews, events)</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Community race directory</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Purchase history</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Unlocking Pro features (via Apple)</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+    <tr><td style="padding:8px 12px; border:1px solid #e5e5ea;">Other user data (plans, nutrition, kit)</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">App functionality</td><td style="padding:8px 12px; border:1px solid #e5e5ea;">Yes</td></tr>
+  </tbody>
+</table>
+<p style="margin-top:0.75rem;">No data is collected for tracking, advertising, or third-party analytics.</p>
+
+<h2 id="changes">13. Changes to This Policy</h2>
+<p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last updated" date at the top of this page and, where appropriate, notify you through the App. Your continued use of the App after any changes constitutes your acceptance of the updated policy.</p>
+
+<h2 id="contact">14. Contact Us</h2>
+<p>If you have questions about this Privacy Policy, want to exercise your data rights, or need to report a privacy concern, please get in touch. We aim to respond to all requests within 30 days.</p>
+<p><strong>Email:</strong> <a href="mailto:app@ultrain.fit">app@ultrain.fit</a></p>
 
 </body>
 </html>
