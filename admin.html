@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ulTrain Admin</title>
+<style>
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-page: #1C2836; --bg-card: #253344; --bg-input: #1A2535;
+  --bg-sidebar: #172131; --bg-hover: #2E3E50;
+  --accent: #E67E22; --accent-dim: rgba(230,126,34,0.15);
+  --success: #4D996B; --success-dim: rgba(77,153,107,0.15);
+  --warning: #D69E38; --warning-dim: rgba(214,158,56,0.15);
+  --danger: #C24D42; --danger-dim: rgba(194,77,66,0.15);
+  --violet: #806BA8; --teal: #478C99;
+  --text-primary: #E8ECF1; --text-secondary: #8899AA; --text-muted: #5A6A7A;
+  --border: #2E3E50; --radius: 10px; --radius-lg: 14px;
+}
+html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif; background: var(--bg-page); color: var(--text-primary); }
+a { color: var(--accent); text-decoration: none; }
+button { cursor: pointer; font-family: inherit; border: none; }
+input, textarea, select { font-family: inherit; }
+
+/* ─── Login ─── */
+#loginScreen { display: flex; align-items: center; justify-content: center; height: 100vh; }
+.login-card { background: var(--bg-card); border-radius: var(--radius-lg); padding: 40px; width: 380px; text-align: center; border: 1px solid var(--border); }
+.login-card h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+.login-card h1 span { color: var(--accent); }
+.login-card p { color: var(--text-secondary); font-size: 14px; margin-bottom: 28px; }
+.login-card input { width: 100%; padding: 12px 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 14px; margin-bottom: 12px; outline: none; }
+.login-card input:focus { border-color: var(--accent); }
+.login-card .btn-login { width: 100%; padding: 12px; background: var(--accent); color: #fff; font-size: 15px; font-weight: 600; border-radius: 8px; margin-top: 8px; }
+.login-card .btn-login:hover { filter: brightness(1.1); }
+.login-card .btn-login:disabled { opacity: 0.5; cursor: not-allowed; }
+.login-error { color: var(--danger); font-size: 13px; margin-top: 12px; min-height: 20px; }
+
+/* ─── Shell ─── */
+#adminShell { display: none; height: 100vh; }
+.shell { display: flex; height: 100%; }
+
+/* ─── Sidebar ─── */
+.sidebar { width: 240px; min-width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
+.sidebar-brand { padding: 20px 18px 16px; border-bottom: 1px solid var(--border); }
+.sidebar-brand h2 { font-size: 20px; font-weight: 700; }
+.sidebar-brand h2 span { color: var(--accent); }
+.sidebar-brand small { font-size: 11px; color: var(--text-muted); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+.sidebar-section { padding: 12px 0 4px; }
+.sidebar-section-title { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; padding: 0 18px 6px; }
+.sidebar-item { display: flex; align-items: center; gap: 10px; padding: 9px 18px; font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-left: 3px solid transparent; transition: all 0.15s; }
+.sidebar-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+.sidebar-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim); }
+.sidebar-item .icon { width: 20px; text-align: center; font-size: 14px; }
+.sidebar-item .badge { margin-left: auto; background: var(--danger); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; }
+.sidebar-footer { margin-top: auto; padding: 16px 18px; border-top: 1px solid var(--border); }
+.sidebar-footer button { width: 100%; padding: 9px; background: var(--bg-hover); color: var(--text-secondary); font-size: 13px; font-weight: 500; border-radius: 8px; }
+.sidebar-footer button:hover { background: var(--danger-dim); color: var(--danger); }
+
+/* ─── Main Content ─── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.topbar { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; min-height: 60px; }
+.topbar h1 { font-size: 20px; font-weight: 700; }
+.topbar .user-info { font-size: 13px; color: var(--text-secondary); }
+.content { flex: 1; overflow-y: auto; padding: 24px; }
+
+/* ─── Panels ─── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ─── Cards Grid ─── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: var(--bg-card); border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); cursor: pointer; transition: border-color 0.2s; }
+.stat-card:hover { border-color: var(--accent); }
+.stat-card .stat-value { font-size: 32px; font-weight: 700; }
+.stat-card .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.stat-card.accent .stat-value { color: var(--accent); }
+.stat-card.warning .stat-value { color: var(--warning); }
+.stat-card.danger .stat-value { color: var(--danger); }
+.stat-card.success .stat-value { color: var(--success); }
+
+/* ─── Filter Tabs ─── */
+.filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.filter-tab { padding: 7px 14px; font-size: 13px; font-weight: 500; border-radius: 20px; background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); }
+.filter-tab:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.filter-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.search-input { margin-left: auto; padding: 7px 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 20px; color: var(--text-primary); font-size: 13px; width: 220px; outline: none; }
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--text-muted); }
+
+/* ─── Tables ─── */
+.table-wrap { background: var(--bg-card); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; margin-bottom: 24px; }
+.table-wrap h3 { padding: 14px 16px 10px; font-size: 14px; font-weight: 600; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th { padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); background: var(--bg-sidebar); white-space: nowrap; }
+tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text-primary); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+th.sortable { cursor: pointer; user-select: none; position: relative; padding-right: 20px !important; }
+th.sortable:hover { color: var(--text-primary); }
+th.sortable::after { content: '⇅'; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 10px; opacity: 0.3; }
+th.sortable.sort-asc::after { content: '▲'; opacity: 0.9; color: var(--accent); }
+th.sortable.sort-desc::after { content: '▼'; opacity: 0.9; color: var(--accent); }
+
+/* ─── Badges ─── */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge-success { background: var(--success-dim); color: var(--success); }
+.badge-warning { background: var(--warning-dim); color: var(--warning); }
+.badge-danger { background: var(--danger-dim); color: var(--danger); }
+.badge-accent { background: var(--accent-dim); color: var(--accent); }
+.badge-muted { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+
+/* ─── Buttons ─── */
+.btn { padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 6px; transition: all 0.15s; white-space: nowrap; }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover { filter: brightness(1.1); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { filter: brightness(1.1); }
+.btn-warning { background: var(--warning); color: #fff; }
+.btn-warning:hover { filter: brightness(1.1); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { filter: brightness(1.1); }
+.btn-ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.btn-sm { padding: 4px 10px; font-size: 11px; }
+.action-btns { display: flex; gap: 6px; }
+
+/* ─── Modal ─── */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border); width: 90%; max-width: 640px; max-height: 85vh; display: flex; flex-direction: column; }
+.modal-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-header h2 { font-size: 16px; font-weight: 600; }
+.modal-close { background: none; color: var(--text-muted); font-size: 20px; padding: 4px 8px; border-radius: 6px; }
+.modal-close:hover { color: var(--text-primary); background: var(--bg-hover); }
+.modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+.modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+.modal textarea { width: 100%; min-height: 300px; padding: 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 13px; font-family: 'SF Mono', 'Menlo', monospace; line-height: 1.5; resize: vertical; outline: none; }
+.modal textarea:focus { border-color: var(--accent); }
+.modal input[type="text"], .modal textarea.reject-reason { width: 100%; padding: 12px 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 14px; outline: none; min-height: auto; font-family: inherit; }
+.modal input[type="text"]:focus, .modal textarea.reject-reason:focus { border-color: var(--accent); }
+.modal .field-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
+.modal .doc-path { font-size: 12px; color: var(--text-muted); font-family: monospace; margin-bottom: 12px; }
+
+/* ─── Toast ─── */
+#toast { position: fixed; bottom: 24px; right: 24px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
+.toast-item { padding: 12px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; animation: slideIn 0.3s ease; min-width: 280px; }
+.toast-success { background: var(--success); color: #fff; }
+.toast-error { background: var(--danger); color: #fff; }
+.toast-info { background: var(--accent); color: #fff; }
+@keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ─── Loading ─── */
+.loading { display: flex; align-items: center; justify-content: center; padding: 40px; color: var(--text-muted); font-size: 14px; }
+.spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 10px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Empty State ─── */
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; }
+
+/* ─── Owner UID filter ─── */
+.uid-filter { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.uid-filter label { font-size: 13px; color: var(--text-secondary); font-weight: 500; white-space: nowrap; }
+.uid-filter input { flex: 1; max-width: 360px; padding: 7px 14px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 13px; font-family: monospace; outline: none; }
+.uid-filter input:focus { border-color: var(--accent); }
+
+.load-more { text-align: center; padding: 16px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>ul<span>Train</span></h1>
+    <p>Admin Panel</p>
+    <input type="email" id="loginEmail" placeholder="Email address" autocomplete="email">
+    <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+    <button class="btn-login" id="loginBtn" onclick="doLogin()">Sign In</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN SHELL ═══ -->
+<div id="adminShell">
+  <div class="shell">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-brand">
+        <h2>ul<span>Train</span></h2>
+        <small>Admin Panel</small>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Admin Tools</div>
+        <div class="sidebar-item active" data-panel="dashboard" onclick="navigate('dashboard')">
+          <span class="icon">&#9632;</span> Dashboard
+        </div>
+        <div class="sidebar-item" data-panel="events" onclick="navigate('events')">
+          <span class="icon">&#127937;</span> Events <span class="badge" id="badgePendingEvents" style="display:none"></span>
+        </div>
+        <div class="sidebar-item" data-panel="reviews" onclick="navigate('reviews')">
+          <span class="icon">&#11088;</span> Reviews <span class="badge" id="badgePendingReviews" style="display:none"></span>
+        </div>
+        <div class="sidebar-item" data-panel="reports" onclick="navigate('reports')">
+          <span class="icon">&#9888;</span> Reports <span class="badge" id="badgeReports" style="display:none"></span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Users</div>
+        <div class="sidebar-item" data-panel="users" onclick="navigate('users')">
+          <span class="icon">&#128100;</span> Users
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Training Data</div>
+        <div class="sidebar-item" data-panel="browser-plans" onclick="navigateBrowser('plans')">
+          <span class="icon">&#128203;</span> Plans
+        </div>
+        <div class="sidebar-item" data-panel="browser-weeks" onclick="navigateBrowser('weeks')">
+          <span class="icon">&#128197;</span> Weeks
+        </div>
+        <div class="sidebar-item" data-panel="browser-runs" onclick="navigateBrowser('runs')">
+          <span class="icon">&#127939;</span> Runs
+        </div>
+        <div class="sidebar-item" data-panel="browser-weeklyPlans" onclick="navigateBrowser('weeklyPlans')">
+          <span class="icon">&#128221;</span> Weekly Plans
+        </div>
+        <div class="sidebar-item" data-panel="browser-plannedActivities" onclick="navigateBrowser('plannedActivities')">
+          <span class="icon">&#9989;</span> Planned Activities
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Nutrition &amp; Kit</div>
+        <div class="sidebar-item" data-panel="browser-nutritionLogs" onclick="navigateBrowser('nutritionLogs')">
+          <span class="icon">&#128214;</span> Nutrition Logs
+        </div>
+        <div class="sidebar-item" data-panel="browser-nutritionItems" onclick="navigateBrowser('nutritionItems')">
+          <span class="icon">&#127860;</span> Nutrition Items
+        </div>
+        <div class="sidebar-item" data-panel="browser-nutritionCategories" onclick="navigateBrowser('nutritionCategories')">
+          <span class="icon">&#128193;</span> Nutrition Categories
+        </div>
+        <div class="sidebar-item" data-panel="browser-kitLists" onclick="navigateBrowser('kitLists')">
+          <span class="icon">&#127890;</span> Kit Lists
+        </div>
+        <div class="sidebar-item" data-panel="browser-kitItems" onclick="navigateBrowser('kitItems')">
+          <span class="icon">&#129520;</span> Kit Items
+        </div>
+        <div class="sidebar-item" data-panel="browser-kitTemplates" onclick="navigateBrowser('kitTemplates')">
+          <span class="icon">&#128230;</span> Kit Templates
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Config</div>
+        <div class="sidebar-item" data-panel="browser-runTypes" onclick="navigateBrowser('runTypes')">
+          <span class="icon">&#127918;</span> Run Types
+        </div>
+        <div class="sidebar-item" data-panel="browser-quotes" onclick="navigateBrowser('quotes')">
+          <span class="icon">&#128172;</span> Quotes
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <button onclick="doSignOut()">Sign Out</button>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="topbar">
+        <h1 id="pageTitle">Dashboard</h1>
+        <div class="user-info" id="userInfo"></div>
+      </div>
+      <div class="content" id="contentArea">
+
+        <!-- Dashboard -->
+        <div class="panel active" id="panel-dashboard"></div>
+
+        <!-- Events -->
+        <div class="panel" id="panel-events"></div>
+
+        <!-- Reviews -->
+        <div class="panel" id="panel-reviews"></div>
+
+        <!-- Reports -->
+        <div class="panel" id="panel-reports"></div>
+
+        <!-- Users -->
+        <div class="panel" id="panel-users"></div>
+
+        <!-- Generic Browser -->
+        <div class="panel" id="panel-browser"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+<div class="modal-overlay" id="editorModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="editorTitle">Edit Document</h2>
+      <button class="modal-close" onclick="closeModal('editorModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="doc-path" id="editorPath"></div>
+      <textarea id="editorTextarea" spellcheck="false"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('editorModal')">Cancel</button>
+      <button class="btn btn-accent" id="editorSaveBtn" onclick="saveDocument()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <h2>Delete Document</h2>
+      <button class="modal-close" onclick="closeModal('deleteModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="deleteMessage" style="font-size:14px;line-height:1.6"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('deleteModal')">Cancel</button>
+      <button class="btn btn-danger" id="deleteConfirmBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="rejectModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <h2>Reject Event</h2>
+      <button class="modal-close" onclick="closeModal('rejectModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="rejectEventName" style="font-size:14px;margin-bottom:16px"></p>
+      <div class="field-label">Rejection reason (shown to the submitter)</div>
+      <textarea class="reject-reason" id="rejectReason" rows="4" placeholder="Enter reason for rejection..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('rejectModal')">Cancel</button>
+      <button class="btn btn-danger" id="rejectConfirmBtn">Reject Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toast"></div>
+
+<!-- ═══ FIREBASE SDK ═══ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
+import { getFirestore, collection, collectionGroup, doc, getDoc, getDocs, updateDoc, deleteDoc, setDoc, query, where, orderBy, limit, startAfter, increment, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+// ─── Firebase Config ───
+// TODO: Register a web app in Firebase Console for project ultrain-63380
+// and replace the appId below with the web app ID.
+const firebaseConfig = {
+  apiKey: "AIzaSyB6S9vtxFVISJNA_4NRU2_jhCKUwt5W-eI",
+  authDomain: "ultrain-63380.firebaseapp.com",
+  projectId: "ultrain-63380",
+  storageBucket: "ultrain-63380.firebasestorage.app",
+  messagingSenderId: "177508457885",
+  appId: "REPLACE_WITH_WEB_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ─── State ───
+let currentUser = null;
+let allRaces = [];
+let allReviews = [];
+let allUsers = [];
+let browserDocs = [];
+let browserLastDoc = null;
+let browserCollection = '';
+let editorContext = null; // { collection, docId, subcollection?, parentDocId? }
+
+// ─── Sort State ───
+let sortState = {}; // { tableKey: { key, dir } }
+
+function sortableTh(table, key, label) {
+  const s = sortState[table];
+  let cls = 'sortable';
+  if (s && s.key === key) cls += s.dir === 'asc' ? ' sort-asc' : ' sort-desc';
+  return `<th class="${cls}" onclick="toggleSort('${table}','${key}')">${label}</th>`;
+}
+
+window.toggleSort = function(table, key) {
+  const s = sortState[table];
+  if (s && s.key === key) {
+    sortState[table] = { key, dir: s.dir === 'asc' ? 'desc' : 'asc' };
+  } else {
+    sortState[table] = { key, dir: 'asc' };
+  }
+  if (table === 'events') renderEvents();
+  else if (table === 'reviews') renderReviews();
+  else if (table === 'users') renderUsers();
+  else if (table === 'browser') renderBrowser(browserCollection, false);
+};
+
+function applySortToArray(arr, table, accessorMap) {
+  const s = sortState[table];
+  if (!s) return arr;
+  const accessor = accessorMap[s.key] || (d => d[s.key]);
+  return arr.sort((a, b) => {
+    let va = accessor(a), vb = accessor(b);
+    if (va && typeof va === 'object' && typeof va.toDate === 'function') va = va.toDate();
+    if (vb && typeof vb === 'object' && typeof vb.toDate === 'function') vb = vb.toDate();
+    if (va == null && vb == null) return 0;
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    if (typeof va === 'boolean') va = va ? 1 : 0;
+    if (typeof vb === 'boolean') vb = vb ? 1 : 0;
+    if (typeof va === 'number' && typeof vb === 'number') return s.dir === 'asc' ? va - vb : vb - va;
+    if (va instanceof Date && vb instanceof Date) return s.dir === 'asc' ? va - vb : vb - va;
+    const sa = String(va).toLowerCase(), sb = String(vb).toLowerCase();
+    return s.dir === 'asc' ? sa.localeCompare(sb) : sb.localeCompare(sa);
+  });
+}
+
+// ─── Auth ───
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    currentUser = { uid: user.uid, email: user.email };
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminShell').style.display = 'block';
+    document.getElementById('userInfo').textContent = user.email;
+    loadDashboard();
+  } else {
+    currentUser = null;
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('adminShell').style.display = 'none';
+  }
+});
+
+window.doLogin = async function() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginError');
+  err.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (e) {
+    err.textContent = e.message.replace('Firebase: ', '');
+  }
+  btn.disabled = false;
+  btn.textContent = 'Sign In';
+};
+
+window.doSignOut = () => signOut(auth);
+
+// Enter key on password field
+document.getElementById('loginPassword').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') window.doLogin();
+});
+
+// ─── Navigation ───
+window.navigate = function(panel) {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  const item = document.querySelector(`.sidebar-item[data-panel="${panel}"]`);
+  if (item) item.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('panel-' + panel);
+  if (el) el.classList.add('active');
+
+  const titles = { dashboard: 'Dashboard', events: 'Events', reviews: 'Reviews', reports: 'Reports', users: 'Users' };
+  document.getElementById('pageTitle').textContent = titles[panel] || panel;
+
+  if (panel === 'dashboard') loadDashboard();
+  else if (panel === 'events') loadEvents();
+  else if (panel === 'reviews') loadReviews();
+  else if (panel === 'reports') loadReports();
+  else if (panel === 'users') loadUsers();
+};
+
+window.navigateBrowser = function(col) {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  const item = document.querySelector(`.sidebar-item[data-panel="browser-${col}"]`);
+  if (item) item.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-browser').classList.add('active');
+
+  const names = {
+    plans:'Plans', weeks:'Weeks', runs:'Runs', nutritionLogs:'Nutrition Logs',
+    kitLists:'Kit Lists', kitItems:'Kit Items', kitTemplates:'Kit Templates',
+    nutritionItems:'Nutrition Items', runTypes:'Run Types', nutritionCategories:'Nutrition Categories',
+    quotes:'Quotes', weeklyPlans:'Weekly Plans', plannedActivities:'Planned Activities'
+  };
+  document.getElementById('pageTitle').textContent = names[col] || col;
+  browserCollection = col;
+  browserDocs = [];
+  browserLastDoc = null;
+  delete sortState.browser;
+  loadBrowser(col, true);
+};
+
+// ─── Utilities ───
+function toast(msg, type='success') {
+  const el = document.createElement('div');
+  el.className = 'toast-item toast-' + type;
+  el.textContent = msg;
+  document.getElementById('toast').appendChild(el);
+  setTimeout(() => el.remove(), 3500);
+}
+
+function fmtDate(val) {
+  if (!val) return '—';
+  const d = val.toDate ? val.toDate() : new Date(val);
+  return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function fmtTimestamp(val) {
+  if (!val) return '—';
+  const d = val.toDate ? val.toDate() : new Date(val);
+  return d.toISOString();
+}
+
+function statusBadge(race) {
+  if (race.isReported) return '<span class="badge badge-danger">Reported</span>';
+  if (race.isApproved) return '<span class="badge badge-success">Approved</span>';
+  if (race.isRejected) return '<span class="badge badge-danger">Rejected</span>';
+  return '<span class="badge badge-warning">Pending</span>';
+}
+
+function reviewStatusBadge(review) {
+  if (review.isReported) return '<span class="badge badge-danger">Reported</span>';
+  if (review.isApproved) return '<span class="badge badge-success">Approved</span>';
+  return '<span class="badge badge-warning">Pending</span>';
+}
+
+function escHtml(str) {
+  if (str == null) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+window.closeModal = closeModal;
+
+function serializeForEditor(data) {
+  return JSON.stringify(data, (key, value) => {
+    if (value && typeof value === 'object' && value.constructor && value.constructor.name === 'Timestamp') {
+      return { __timestamp__: value.toDate().toISOString() };
+    }
+    if (value && typeof value === 'object' && typeof value.toDate === 'function') {
+      return { __timestamp__: value.toDate().toISOString() };
+    }
+    return value;
+  }, 2);
+}
+
+function deserializeFromEditor(data) {
+  const result = {};
+  for (const [key, value] of Object.entries(data)) {
+    if (value && typeof value === 'object' && value.__timestamp__) {
+      result[key] = Timestamp.fromDate(new Date(value.__timestamp__));
+    } else {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+// ─── Dashboard ───
+async function loadDashboard() {
+  const panel = document.getElementById('panel-dashboard');
+  panel.innerHTML = '<div class="loading"><div class="spinner"></div>Loading dashboard...</div>';
+
+  try {
+    const racesSnap = await getDocs(collection(db, "races"));
+    allRaces = racesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+    let allRevs = [];
+    try {
+      const revSnap = await getDocs(collectionGroup(db, "reviews"));
+      allRevs = revSnap.docs.map(d => ({ id: d.id, raceDocId: d.ref.parent.parent.id, ...d.data() }));
+    } catch(e) { console.warn('CollectionGroup query failed (may need index):', e); }
+    allReviews = allRevs;
+
+    const pendingEvents = allRaces.filter(r => !r.isApproved && !r.isRejected).length;
+    const pendingReviews = allRevs.filter(r => !r.isApproved && !r.isReported).length;
+    const reportedEvents = allRaces.filter(r => r.isReported).length;
+    const reportedReviews = allRevs.filter(r => r.isReported).length;
+
+    // Update sidebar badges
+    setBadge('badgePendingEvents', pendingEvents);
+    setBadge('badgePendingReviews', pendingReviews);
+    setBadge('badgeReports', reportedEvents + reportedReviews);
+
+    const recentPending = allRaces.filter(r => !r.isApproved && !r.isRejected).slice(0, 5);
+    const recentPendingRevs = allRevs.filter(r => !r.isApproved && !r.isReported).slice(0, 5);
+
+    panel.innerHTML = `
+      <div class="stat-grid">
+        <div class="stat-card warning" onclick="navigate('events')">
+          <div class="stat-value">${pendingEvents}</div>
+          <div class="stat-label">Pending Events</div>
+        </div>
+        <div class="stat-card accent" onclick="navigate('reviews')">
+          <div class="stat-value">${pendingReviews}</div>
+          <div class="stat-label">Pending Reviews</div>
+        </div>
+        <div class="stat-card danger" onclick="navigate('reports')">
+          <div class="stat-value">${reportedEvents}</div>
+          <div class="stat-label">Reported Events</div>
+        </div>
+        <div class="stat-card danger" onclick="navigate('reports')">
+          <div class="stat-value">${reportedReviews}</div>
+          <div class="stat-label">Reported Reviews</div>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card success">
+          <div class="stat-value">${allRaces.filter(r=>r.isApproved).length}</div>
+          <div class="stat-label">Approved Events</div>
+        </div>
+        <div class="stat-card success">
+          <div class="stat-value">${allRevs.filter(r=>r.isApproved).length}</div>
+          <div class="stat-label">Approved Reviews</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-value">${allRaces.length}</div>
+          <div class="stat-label">Total Events</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-value">${allRevs.length}</div>
+          <div class="stat-label">Total Reviews</div>
+        </div>
+      </div>
+      ${recentPending.length ? `
+        <div class="table-wrap">
+          <h3>Recent Pending Events</h3>
+          <table><thead><tr><th>Name</th><th>Date</th><th>Distance</th><th>Owner</th><th>Actions</th></tr></thead>
+          <tbody>${recentPending.map(r => `<tr>
+            <td>${escHtml(r.name)}</td><td>${fmtDate(r.date)}</td>
+            <td>${r.distanceKm > 0 ? r.distanceKm + ' km' : '—'}</td>
+            <td>${escHtml(r.ownerName || '—')}</td>
+            <td class="action-btns">
+              <button class="btn btn-sm btn-success" onclick="approveEvent('${r.id}')">Approve</button>
+              <button class="btn btn-sm btn-danger" onclick="showRejectEvent('${r.id}','${escHtml(r.name)}')">Reject</button>
+            </td></tr>`).join('')}</tbody></table>
+        </div>` : ''}
+      ${recentPendingRevs.length ? `
+        <div class="table-wrap">
+          <h3>Recent Pending Reviews</h3>
+          <table><thead><tr><th>Race</th><th>Reviewer</th><th>Overall</th><th>Comments</th><th>Actions</th></tr></thead>
+          <tbody>${recentPendingRevs.map(r => `<tr>
+            <td>${escHtml(r.raceName)}</td><td>${escHtml(r.reviewerFirstName)}</td>
+            <td>${r.overall}/5</td><td title="${escHtml(r.comments)}">${escHtml((r.comments||'').substring(0,60))}</td>
+            <td><button class="btn btn-sm btn-success" onclick="approveReview('${r.raceDocId}','${r.id}',${r.overall})">Approve</button></td>
+          </tr>`).join('')}</tbody></table>
+        </div>` : ''}
+    `;
+  } catch(e) {
+    panel.innerHTML = `<div class="empty-state"><p>Error loading dashboard: ${escHtml(e.message)}</p></div>`;
+  }
+}
+
+function setBadge(id, count) {
+  const el = document.getElementById(id);
+  if (count > 0) { el.textContent = count; el.style.display = 'inline'; }
+  else { el.style.display = 'none'; }
+}
+
+// ─── Events ───
+let eventsFilter = 'all';
+let eventsSearch = '';
+
+async function loadEvents() {
+  const panel = document.getElementById('panel-events');
+  panel.innerHTML = '<div class="loading"><div class="spinner"></div>Loading events...</div>';
+
+  try {
+    if (!allRaces.length) {
+      const snap = await getDocs(collection(db, "races"));
+      allRaces = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+    renderEvents();
+  } catch(e) {
+    panel.innerHTML = `<div class="empty-state"><p>Error: ${escHtml(e.message)}</p></div>`;
+  }
+}
+
+function renderEvents() {
+  let filtered = [...allRaces];
+  if (eventsFilter === 'pending') filtered = filtered.filter(r => !r.isApproved && !r.isRejected);
+  else if (eventsFilter === 'approved') filtered = filtered.filter(r => r.isApproved);
+  else if (eventsFilter === 'rejected') filtered = filtered.filter(r => r.isRejected);
+  else if (eventsFilter === 'reported') filtered = filtered.filter(r => r.isReported);
+
+  if (eventsSearch) {
+    const s = eventsSearch.toLowerCase();
+    filtered = filtered.filter(r => (r.name||'').toLowerCase().includes(s) || (r.location||'').toLowerCase().includes(s) || (r.country||'').toLowerCase().includes(s));
+  }
+
+  // Sort
+  if (sortState.events) {
+    applySortToArray(filtered, 'events', {
+      name: d => (d.name||'').toLowerCase(),
+      date: d => d.date,
+      dist: d => d.distanceKm || 0,
+      location: d => (d.location||'').toLowerCase(),
+      country: d => (d.country||'').toLowerCase(),
+      activity: d => (d.activityType||'').toLowerCase(),
+      owner: d => (d.ownerName||'').toLowerCase(),
+      status: d => d.isApproved ? 2 : d.isRejected ? 3 : d.isReported ? 4 : 1
+    });
+  } else {
+    filtered.sort((a, b) => {
+      const aP = (!a.isApproved && !a.isRejected) ? 0 : 1;
+      const bP = (!b.isApproved && !b.isRejected) ? 0 : 1;
+      if (aP !== bP) return aP - bP;
+      const aD = a.date?.toDate ? a.date.toDate() : new Date(0);
+      const bD = b.date?.toDate ? b.date.toDate() : new Date(0);
+      return bD - aD;
+    });
+  }
+
+  const panel = document.getElementById('panel-events');
+  panel.innerHTML = `
+    <div class="filter-bar">
+      ${['all','pending','approved','rejected','reported'].map(f =>
+        `<button class="filter-tab ${eventsFilter===f?'active':''}" onclick="setEventsFilter('${f}')">${f.charAt(0).toUpperCase()+f.slice(1)}</button>`
+      ).join('')}
+      <input class="search-input" placeholder="Search events..." value="${escHtml(eventsSearch)}" oninput="setEventsSearch(this.value)">
+    </div>
+    ${filtered.length === 0 ? '<div class="empty-state"><div class="icon">&#127937;</div><p>No events match this filter</p></div>' : `
+    <div class="table-wrap">
+      <table><thead><tr>
+        ${sortableTh('events','name','Name')}${sortableTh('events','date','Date')}${sortableTh('events','dist','Dist')}${sortableTh('events','location','Location')}${sortableTh('events','country','Country')}${sortableTh('events','activity','Activity')}${sortableTh('events','owner','Owner')}${sortableTh('events','status','Status')}<th>Actions</th>
+      </tr></thead><tbody>
+      ${filtered.map(r => `<tr>
+        <td title="${escHtml(r.name)}">${escHtml(r.name)}</td>
+        <td>${fmtDate(r.date)}</td>
+        <td>${r.distanceKm > 0 ? Math.round(r.distanceKm) + ' km' : '—'}</td>
+        <td>${escHtml(r.location || '—')}</td>
+        <td>${escHtml(r.country || '—')}</td>
+        <td>${escHtml(r.activityType || '—')}</td>
+        <td title="${escHtml(r.ownerEmail||'')}">${escHtml(r.ownerName || 'Seeded')}</td>
+        <td>${statusBadge(r)}</td>
+        <td class="action-btns">
+          ${!r.isApproved ? `<button class="btn btn-sm btn-success" onclick="approveEvent('${r.id}')">Approve</button>` : ''}
+          ${!r.isRejected && !r.isApproved ? `<button class="btn btn-sm btn-warning" onclick="showRejectEvent('${r.id}','${escHtml(r.name)}')">Reject</button>` : ''}
+          ${r.isReported ? `<button class="btn btn-sm btn-ghost" onclick="unreportEvent('${r.id}')">Dismiss</button>` : ''}
+          <button class="btn btn-sm btn-ghost" onclick="editRace('${r.id}')">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="confirmDeleteRace('${r.id}','${escHtml(r.name)}')">Delete</button>
+        </td>
+      </tr>`).join('')}
+      </tbody></table>
+    </div>`}
+  `;
+}
+
+window.setEventsFilter = function(f) { eventsFilter = f; renderEvents(); };
+window.setEventsSearch = function(s) { eventsSearch = s; renderEvents(); };
+
+window.approveEvent = async function(id) {
+  try {
+    await updateDoc(doc(db, "races", id), { isApproved: true, isRejected: false, rejectionReason: "" });
+    const r = allRaces.find(r => r.id === id);
+    if (r) { r.isApproved = true; r.isRejected = false; r.rejectionReason = ''; }
+    toast('Event approved');
+    renderEvents();
+    updateDashboardBadges();
+  } catch(e) { toast('Error: ' + e.message, 'error'); }
+};
+
+window.showRejectEvent = function(id, name) {
+  document.getElementById('rejectEventName').textContent = 'Reject: ' + name;
+  document.getElementById('rejectReason').value = '';
+  document.getElementById('rejectConfirmBtn').onclick = () => rejectEvent(id);
+  openModal('rejectModal');
+};
+
+async function rejectEvent(id) {
+  const reason = document.getElementById('rejectReason').value.trim();
+  if (!reason) { toast('Please enter a rejection reason', 'error'); return; }
+  try {
+    await updateDoc(doc(db, "races", id), { isApproved: false, isRejected: true, rejectionReason: reason });
+    const r = allRaces.find(r => r.id === id);
+    if (r) { r.isApproved = false; r.isRejected = true; r.rejectionReason = reason; }
+    closeModal('rejectModal');
+    toast('Event rejected');
+    renderEvents();
+    updateDashboardBadges();
+  } catch(e) { toast('Error: ' + e.message, 'error'); }
+}
+
+window.unreportEvent = async function(id) {
+  try {
+    await updateDoc(doc(db, "races", id), { isReported: false, reportReason: '', reportedByUid: '', reportedByEmail: '', reportedByName: '' });
+    const r = allRaces.find(r => r.id === id);
+    if (r) { r.isReported = false; }
+    toast('Report dismissed');
+    renderEvents();
+    updateDashboardBadges();
+  } catch(e) { toast('Error: ' + e.message, 'error'); }
+};
+
+window.editRace = function(id) {
+  const race = allRaces.find(r => r.id === id);
+  if (!race) return;
+  const data = { ...race };
+  delete data.id;
+  editorContext = { collection: 'races', docId: id };
+  document.getElementById('editorTitle').textContent = 'Edit Event';
+  document.getElementById('editorPath').textContent = `races/${id}`;
+  document.getElementById('editorTextarea').value = serializeForEditor(data);
+  openModal('editorModal');
+};
+
+window.confirmDeleteRace = function(id, name) {
+  document.getElementById('deleteMessage').textContent = `Delete event "${name}"? This cannot be undone. Any reviews for this event will be orphaned.`;
+  document.getElementById('deleteConfirmBtn').onclick = async () => {
+    try {
+      await deleteDoc(doc(db, "races", id));
+      allRaces = allRaces.filter(r => r.id !== id);
+      closeModal('deleteModal');
+      toast('Event deleted');
+      renderEvents();
+      updateDashboardBadges();
+    } catch(e) { toast('Error: ' + e.message, 'error'); }
+  };
+  openModal('deleteModal');
+};
+
+// ─── Reviews ───
+let reviewsFilter = 'all';
+
+async function loadReviews() {
+  const panel = document.getElementById('panel-reviews');
+  panel.innerHTML = '<div class="loading"><div class="spinner"></div>Loading reviews...</div>';
+  try {
+    const snap = await getDocs(collectionGroup(db, "reviews"));
+    allReviews = snap.docs.map(d => ({ id: d.id, raceDocId: d.ref.parent.parent.id, ...d.data() }));
+    renderReviews();
+  } catch(e) {
+    panel.innerHTML = `<div class="empty-state"><p>Error: ${escHtml(e.message)}</p></div>`;
+  }
+}
+
+function renderReviews() {
+  let filtered = [...allReviews];
+  if (reviewsFilter === 'pending') filtered = filtered.filter(r => !r.isApproved && !r.isReported);
+  else if (reviewsFilter === 'approved') filtered = filtered.filter(r => r.isApproved);
+  else if (reviewsFilter === 'reported') filtered = filtered.filter(r => r.isReported);
+
+  if (sortState.reviews) {
+    applySortToArray(filtered, 'reviews', {
+      race: d => (d.raceName||'').toLowerCase(),
+      reviewer: d => (d.reviewerFirstName||'').toLowerCase(),
+      overall: d => d.overall || 0,
+      org: d => d.organisation || 0,
+      aid: d => d.aidStations || 0,
+      route: d => d.routeMarking || 0,
+      kit: d => d.mandatoryKit || 0,
+      comments: d => (d.comments||'').toLowerCase(),
+      status: d => d.isApproved ? 2 : d.isReported ? 3 : 1
+    });
+  } else {
+    filtered.sort((a,b) => {
+      const aP = !a.isApproved ? 0 : 1;
+      const bP = !b.isApproved ? 0 : 1;
+      return aP - bP;
+    });
+  }
+
+  const panel = document.getElementById('panel-reviews');
+  panel.innerHTML = `
+    <div class="filter-bar">
+      ${['all','pending','approved','reported'].map(f =>
+        `<button class="filter-tab ${reviewsFilter===f?'active':''}" onclick="setReviewsFilter('${f}')">${f.charAt(0).toUpperCase()+f.slice(1)}</button>`
+      ).join('')}
+    </div>
+    ${filtered.length === 0 ? '<div class="empty-state"><div class="icon">&#11088;</div><p>No reviews match this filter</p></div>' : `
+    <div class="table-wrap">
+      <table><thead><tr>
+        ${sortableTh('reviews','race','Race')}${sortableTh('reviews','reviewer','Reviewer')}${sortableTh('reviews','overall','Overall')}${sortableTh('reviews','org','Org')}${sortableTh('reviews','aid','Aid')}${sortableTh('reviews','route','Route')}${sortableTh('reviews','kit','Kit')}${sortableTh('reviews','comments','Comments')}${sortableTh('reviews','status','Status')}<th>Actions</th>
+      </tr></thead><tbody>
+      ${filtered.map(r => `<tr>
+        <td title="${escHtml(r.raceName)}">${escHtml(r.raceName||'—')}</td>
+        <td>${escHtml(r.reviewerFirstName||'—')}</td>
+        <td>${r.overall||0}/5</td>
+        <td>${r.organisation||0}/5</td>
+        <td>${r.aidStations||0}/5</td>
+        <td>${r.routeMarking||0}/5</td>
+        <td>${r.mandatoryKit||0}/5</td>
+        <td title="${escHtml(r.comments)}">${escHtml((r.comments||'').substring(0,50))}</td>
+        <td>${reviewStatusBadge(r)}</td>
+        <td class="action-btns">
+          ${!r.isApproved ? `<button class="btn btn-sm btn-success" onclick="approveReview('${r.raceDocId}','${r.id}',${r.overall||0})">Approve</button>` : ''}
+          ${r.isReported ? `<button class="btn btn-sm btn-ghost" onclick="unreportReview('${r.raceDocId}','${r.id}')">Dismiss</button>` : ''}
+          <button class="btn btn-sm btn-ghost" onclick="editReview('${r.raceDocId}','${r.id}')">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="confirmDeleteReview('${r.raceDocId}','${r.id}',${r.overall||0},${r.isApproved?'true':'false'})">Delete</button>
+        </td>
+      </tr>`).join('')}
+      </tbody></table>
+    </div>`}
+  `;
+}
+
+window.setReviewsFilter = function(f) { reviewsFilter = f; renderReviews(); };
+
+window.approveReview = async function(raceId, reviewId, overall) {
+  try {
+    await updateDoc(doc(db, "races", raceId, "reviews", reviewId), { isApproved: true });
+    await updateDoc(doc(db, "races", raceId), { reviewCount: increment(1), ratingOverall: increment(overall) });
+    const r = allReviews.find(r => r.id === reviewId);
+    if (r) r.isApproved = true;
+    toast('Review approved');
+    renderReviews();
+    updateDashboardBadges();
+  } catch(e) { toast('Error: ' + e.message, 'error'); }
+};
+
+window.unreportReview = async function(raceId, reviewId) {
+  try {
+    await updateDoc(doc(db, "races", raceId, "reviews", reviewId), { isReported: false, reportReason: '', reportedByUid: '', reportedByEmail: '', reportedByName: '' });
+    const r = allReviews.find(r => r.id === reviewId);
+    if (r) r.isReported = false;
+    toast('Report dismissed');
+    renderReviews();
+  } catch(e) { toast('Error: ' + e.message, 'error'); }
+};
+
+window.editReview = function(raceId, reviewId) {
+  const review = allReviews.find(r => r.id === reviewId);
+  if (!review) return;
+  const data = { ...review };
+  delete data.id; delete data.raceDocId;
+  editorContext = { collection: 'races', docId: raceId, subcollection: 'reviews', subDocId: reviewId };
+  document.getElementById('editorTitle').textContent = 'Edit Review';
+  document.getElementById('editorPath').textContent = `races/${raceId}/reviews/${reviewId}`;
+  document.getElementById('editorTextarea').value = serializeForEditor(data);
+  openModal('editorModal');
+};
+
+window.confirmDeleteReview = function(raceId, reviewId, overall, wasApproved) {
+  document.getElementById('deleteMessage').textContent = `Delete this review? This cannot be undone.`;
+  document.getElementById('deleteConfirmBtn').onclick = async () => {
+    try {
+      await deleteDoc(doc(db, "races", raceId, "reviews", reviewId));
+      if (wasApproved) {
+        await updateDoc(doc(db, "races", raceId), { reviewCount: increment(-1), ratingOverall: increment(-overall) });
+      }
+      allReviews = allReviews.filter(r => r.id !== reviewId);
+      closeModal('deleteModal');
+      toast('Review deleted');
+      renderReviews();
+      updateDashboardBadges();
+    } catch(e) { toast('Error: ' + e.message, 'error'); }
+  };
+  openModal('deleteModal');
+};
+
+// ─── Reports ───
+async function loadReports() {
+  const panel = document.getElementById('panel-reports');
+  panel.innerHTML = '<div class="loading"><div class="spinner"></div>Loading reports...</div>';
+  try {
+    const reportedEvents = allRaces.filter(r => r.isReported);
+    const reportedReviews = allReviews.filter(r => r.isReported);
+
+    panel.innerHTML = `
+      <h3 style="margin-bottom:16px;font-size:16px;">Reported Events (${reportedEvents.length})</h3>
+      ${reportedEvents.length === 0 ? '<div class="empty-state" style="padding:24px"><p>No reported events</p></div>' : `
+      <div class="table-wrap" style="margin-bottom:32px">
+        <table><thead><tr><th>Name</th><th>Reporter</th><th>Reason</th><th>Actions</th></tr></thead><tbody>
+        ${reportedEvents.map(r => `<tr>
+          <td>${escHtml(r.name)}</td>
+          <td>${escHtml(r.reportedByName||r.reportedByEmail||'—')}</td>
+          <td title="${escHtml(r.reportReason)}">${escHtml((r.reportReason||'').substring(0,80))}</td>
+          <td class="action-btns">
+            <button class="btn btn-sm btn-ghost" onclick="unreportEvent('${r.id}');navigate('reports')">Dismiss</button>
+            <button class="btn btn-sm btn-danger" onclick="confirmDeleteRace('${r.id}','${escHtml(r.name)}')">Delete</button>
+          </td>
+        </tr>`).join('')}</tbody></table>
+      </div>`}
+
+      <h3 style="margin-bottom:16px;font-size:16px;">Reported Reviews (${reportedReviews.length})</h3>
+      ${reportedReviews.length === 0 ? '<div class="empty-state" style="padding:24px"><p>No reported reviews</p></div>' : `
+      <div class="table-wrap">
+        <table><thead><tr><th>Race</th><th>Reviewer</th><th>Reporter</th><th>Reason</th><th>Actions</th></tr></thead><tbody>
+        ${reportedReviews.map(r => `<tr>
+          <td>${escHtml(r.raceName)}</td>
+          <td>${escHtml(r.reviewerFirstName)}</td>
+          <td>${escHtml(r.reportedByName||r.reportedByEmail||'—')}</td>
+          <td title="${escHtml(r.reportReason)}">${escHtml((r.reportReason||'').substring(0,80))}</td>
+          <td class="action-btns">
+            <button class="btn btn-sm btn-ghost" onclick="unreportReview('${r.raceDocId}','${r.id}');navigate('reports')">Dismiss</button>
+            <button class="btn btn-sm btn-danger" onclick="confirmDeleteReview('${r.raceDocId}','${r.id}',${r.overall||0},${r.isApproved?'true':'false'})">Delete</button>
+          </td>
+        </tr>`).join('')}</tbody></table>
+      </div>`}
+    `;
+  } catch(e) {
+    panel.innerHTML = `<div class="empty-state"><p>Error: ${escHtml(e.message)}</p></div>`;
+  }
+}
+
+// ─── Users ───
+let usersSearch = '';
+
+async function loadUsers() {
+  const panel = document.getElementById('panel-users');
+  panel.innerHTML = '<div class="loading"><div class="spinner"></div>Loading users...</div>';
+  try {
+    const snap = await getDocs(collection(db, "users"));
+    allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderUsers();
+  } catch(e) {
+    panel.innerHTML = `<div class="empty-state"><p>Error: ${escHtml(e.message)}</p></div>`;
+  }
+}
+
+function renderUsers() {
+  let filtered = [...allUsers];
+  if (usersSearch) {
+    const s = usersSearch.toLowerCase();
+    filtered = filtered.filter(u => (u.firstName||'').toLowerCase().includes(s) || (u.lastName||'').toLowerCase().includes(s) || (u.id||'').toLowerCase().includes(s));
+  }
+
+  if (sortState.users) {
+    applySortToArray(filtered, 'users', {
+      uid: d => d.id,
+      firstName: d => (d.firstName||'').toLowerCase(),
+      lastName: d => (d.lastName||'').toLowerCase(),
+      level: d => (d.runnerLevel||'').toLowerCase(),
+      units: d => (d.preferredUnits||'').toLowerCase(),
+      email: d => (d.email||'').toLowerCase(),
+      admin: d => d.eventsAdmin ? 1 : 0,
+      created: d => d.createdAt
+    });
+  }
+
+  const panel = document.getElementById('panel-users');
+  panel.innerHTML = `
+    <div class="filter-bar">
+      <span style="font-size:13px;color:var(--text-secondary)">${filtered.length} users</span>
+      <input class="search-input" placeholder="Search users..." value="${escHtml(usersSearch)}" oninput="setUsersSearch(this.value)">
+    </div>
+    ${filtered.length === 0 ? '<div class="empty-state"><div class="icon">&#128100;</div><p>No users found</p></div>' : `
+    <div class="table-wrap">
+      <table><thead><tr>
+        ${sortableTh('users','uid','UID')}${sortableTh('users','firstName','First Name')}${sortableTh('users','lastName','Last Name')}${sortableTh('users','email','Email')}${sortableTh('users','level','Level')}${sortableTh('users','units','Units')}${sortableTh('users','admin','Admin')}${sortableTh('users','created','Created')}<th>Actions</th>
+      </tr></thead><tbody>
+      ${filtered.map(u => `<tr>
+        <td title="${escHtml(u.id)}" style="font-family:monospace;font-size:11px">${escHtml(u.id.substring(0,12))}...</td>
+        <td>${escHtml(u.firstName||'—')}</td>
+        <td>${escHtml(u.lastName||'—')}</td>
+        <td>${escHtml(u.email||'—')}</td>
+        <td>${escHtml(u.runnerLevel||'—')}</td>
+        <td>${escHtml(u.preferredUnits||'—')}</td>
+        <td>${u.eventsAdmin ? '<span class="badge badge-accent">Admin</span>' : '<span class="badge badge-muted">No</span>'}</td>
+        <td>${fmtDate(u.createdAt)}</td>
+        <td class="action-btns">
+          <button class="btn btn-sm ${u.eventsAdmin ? 'btn-warning' : 'btn-accent'}" onclick="toggleAdmin('${u.id}',${!u.eventsAdmin})">${u.eventsAdmin ? 'Revoke' : 'Grant'} Admin</button>
+          <button class="btn btn-sm btn-ghost" onclick="editUser('${u.id}')">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="confirmDeleteUser('${u.id}','${escHtml(u.firstName||'')} ${escHtml(u.lastName||'')}')">Delete</button>
+        </td>
+      </tr>`).join('')}
+      </tbody></table>
+    </div>`}
+  `;
+}
+
+window.setUsersSearch = function(s) { usersSearch = s; renderUsers(); };
+
+window.toggleAdmin = async function(uid, newValue) {
+  try {
+    await updateDoc(doc(db, "users", uid), { eventsAdmin: newValue });
+    const u = allUsers.find(u => u.id === uid);
+    if (u) u.eventsAdmin = newValue;
+    toast(newValue ? 'Admin granted' : 'Admin revoked');
+    renderUsers();
+  } catch(e) { toast('Error: ' + e.message, 'error'); }
+};
+
+window.editUser = function(uid) {
+  const user = allUsers.find(u => u.id === uid);
+  if (!user) return;
+  const data = { ...user };
+  delete data.id;
+  editorContext = { collection: 'users', docId: uid };
+  document.getElementById('editorTitle').textContent = 'Edit User';
+  document.getElementById('editorPath').textContent = `users/${uid}`;
+  document.getElementById('editorTextarea').value = serializeForEditor(data);
+  openModal('editorModal');
+};
+
+window.confirmDeleteUser = function(uid, name) {
+  document.getElementById('deleteMessage').textContent = `Delete user "${name}" (${uid})? This only deletes the profile document, not their training data.`;
+  document.getElementById('deleteConfirmBtn').onclick = async () => {
+    try {
+      await deleteDoc(doc(db, "users", uid));
+      allUsers = allUsers.filter(u => u.id !== uid);
+      closeModal('deleteModal');
+      toast('User deleted');
+      renderUsers();
+    } catch(e) { toast('Error: ' + e.message, 'error'); }
+  };
+  openModal('deleteModal');
+};
+
+// ─── Generic Collection Browser ───
+let browserUidFilter = '';
+
+async function loadBrowser(col, reset) {
+  const panel = document.getElementById('panel-browser');
+  if (reset) {
+    browserDocs = [];
+    browserLastDoc = null;
+    panel.innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
+  }
+
+  try {
+    let q;
+    const colRef = collection(db, col);
+    if (browserUidFilter) {
+      q = query(colRef, where("ownerUid", "==", browserUidFilter), limit(25));
+    } else {
+      q = browserLastDoc
+        ? query(colRef, limit(25), startAfter(browserLastDoc))
+        : query(colRef, limit(25));
+    }
+
+    const snap = await getDocs(q);
+    const newDocs = snap.docs.map(d => ({ __id: d.id, __ref: d, ...d.data() }));
+    browserDocs = reset ? newDocs : [...browserDocs, ...newDocs];
+    browserLastDoc = snap.docs.length > 0 ? snap.docs[snap.docs.length - 1] : null;
+
+    renderBrowser(col, snap.docs.length === 25);
+  } catch(e) {
+    panel.innerHTML = `<div class="empty-state"><p>Error: ${escHtml(e.message)}</p></div>`;
+  }
+}
+
+function renderBrowser(col, hasMore) {
+  // Determine columns from first doc
+  const allKeys = new Set();
+  browserDocs.forEach(d => {
+    Object.keys(d).forEach(k => { if (!k.startsWith('__')) allKeys.add(k); });
+  });
+  const keys = ['ownerUid', ...Array.from(allKeys).filter(k => k !== 'ownerUid').sort()].filter(k => allKeys.has(k));
+  const displayKeys = keys.slice(0, 8); // Limit visible columns
+
+  // Apply sort if active
+  if (sortState.browser) {
+    const accessors = { docId: d => d.__id };
+    displayKeys.forEach(k => { accessors[k] = d => d[k]; });
+    applySortToArray(browserDocs, 'browser', accessors);
+  }
+
+  const panel = document.getElementById('panel-browser');
+  panel.innerHTML = `
+    <div class="uid-filter">
+      <label>Filter by ownerUid:</label>
+      <input type="text" placeholder="Enter UID or leave empty for all..." value="${escHtml(browserUidFilter)}" id="browserUidInput">
+      <button class="btn btn-accent btn-sm" onclick="applyUidFilter()">Filter</button>
+      ${browserUidFilter ? `<button class="btn btn-ghost btn-sm" onclick="clearUidFilter()">Clear</button>` : ''}
+    </div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">${browserDocs.length} documents loaded${hasMore ? ' (more available)' : ''}</div>
+    ${browserDocs.length === 0 ? '<div class="empty-state"><div class="icon">&#128193;</div><p>No documents found</p></div>' : `
+    <div class="table-wrap">
+      <table><thead><tr>
+        ${sortableTh('browser','docId','Doc ID')}
+        ${displayKeys.map(k => sortableTh('browser', k, escHtml(k))).join('')}
+        <th>Actions</th>
+      </tr></thead><tbody>
+      ${browserDocs.map(d => `<tr>
+        <td style="font-family:monospace;font-size:11px" title="${escHtml(d.__id)}">${escHtml(d.__id.substring(0,12))}${d.__id.length>12?'...':''}</td>
+        ${displayKeys.map(k => {
+          let val = d[k];
+          if (val && typeof val === 'object' && typeof val.toDate === 'function') val = fmtDate(val);
+          else if (typeof val === 'boolean') val = val ? 'true' : 'false';
+          else if (val == null) val = '—';
+          else val = String(val);
+          return `<td title="${escHtml(val)}">${escHtml(val.substring(0,40))}</td>`;
+        }).join('')}
+        <td class="action-btns">
+          <button class="btn btn-sm btn-ghost" onclick="editBrowserDoc('${col}','${d.__id}')">Edit</button>
+          <button class="btn btn-sm btn-danger" onclick="confirmDeleteBrowserDoc('${col}','${d.__id}')">Delete</button>
+        </td>
+      </tr>`).join('')}
+      </tbody></table>
+    </div>
+    ${hasMore ? `<div class="load-more"><button class="btn btn-accent" onclick="loadBrowser('${col}',false)">Load More</button></div>` : ''}
+    `}
+  `;
+}
+
+window.applyUidFilter = function() {
+  browserUidFilter = document.getElementById('browserUidInput').value.trim();
+  browserDocs = [];
+  browserLastDoc = null;
+  loadBrowser(browserCollection, true);
+};
+
+window.clearUidFilter = function() {
+  browserUidFilter = '';
+  browserDocs = [];
+  browserLastDoc = null;
+  loadBrowser(browserCollection, true);
+};
+
+window.editBrowserDoc = function(col, docId) {
+  const d = browserDocs.find(d => d.__id === docId);
+  if (!d) return;
+  const data = { ...d };
+  delete data.__id; delete data.__ref;
+  editorContext = { collection: col, docId: docId };
+  document.getElementById('editorTitle').textContent = 'Edit Document';
+  document.getElementById('editorPath').textContent = `${col}/${docId}`;
+  document.getElementById('editorTextarea').value = serializeForEditor(data);
+  openModal('editorModal');
+};
+
+window.confirmDeleteBrowserDoc = function(col, docId) {
+  document.getElementById('deleteMessage').textContent = `Delete document "${docId}" from "${col}"? This cannot be undone.`;
+  document.getElementById('deleteConfirmBtn').onclick = async () => {
+    try {
+      await deleteDoc(doc(db, col, docId));
+      browserDocs = browserDocs.filter(d => d.__id !== docId);
+      closeModal('deleteModal');
+      toast('Document deleted');
+      renderBrowser(col, false);
+    } catch(e) { toast('Error: ' + e.message, 'error'); }
+  };
+  openModal('deleteModal');
+};
+
+// ─── Document Editor (Save) ───
+window.saveDocument = async function() {
+  const textarea = document.getElementById('editorTextarea');
+  let parsed;
+  try {
+    parsed = JSON.parse(textarea.value);
+  } catch(e) {
+    toast('Invalid JSON: ' + e.message, 'error');
+    return;
+  }
+
+  const data = deserializeFromEditor(parsed);
+  const ctx = editorContext;
+  if (!ctx) return;
+
+  try {
+    let ref;
+    if (ctx.subcollection) {
+      ref = doc(db, ctx.collection, ctx.docId, ctx.subcollection, ctx.subDocId);
+    } else {
+      ref = doc(db, ctx.collection, ctx.docId);
+    }
+    await updateDoc(ref, data);
+    closeModal('editorModal');
+    toast('Document saved');
+
+    // Refresh the current view
+    if (ctx.collection === 'races' && !ctx.subcollection) {
+      const idx = allRaces.findIndex(r => r.id === ctx.docId);
+      if (idx >= 0) allRaces[idx] = { id: ctx.docId, ...data };
+      renderEvents();
+    } else if (ctx.subcollection === 'reviews') {
+      const idx = allReviews.findIndex(r => r.id === ctx.subDocId);
+      if (idx >= 0) allReviews[idx] = { id: ctx.subDocId, raceDocId: ctx.docId, ...data };
+      renderReviews();
+    } else if (ctx.collection === 'users') {
+      const idx = allUsers.findIndex(u => u.id === ctx.docId);
+      if (idx >= 0) allUsers[idx] = { id: ctx.docId, ...data };
+      renderUsers();
+    }
+  } catch(e) {
+    toast('Error saving: ' + e.message, 'error');
+  }
+};
+
+function updateDashboardBadges() {
+  const pendingEvents = allRaces.filter(r => !r.isApproved && !r.isRejected).length;
+  const pendingReviews = allReviews.filter(r => !r.isApproved && !r.isReported).length;
+  const reportedAll = allRaces.filter(r => r.isReported).length + allReviews.filter(r => r.isReported).length;
+  setBadge('badgePendingEvents', pendingEvents);
+  setBadge('badgePendingReviews', pendingReviews);
+  setBadge('badgeReports', reportedAll);
+}
+
+// Make functions available globally for onclick handlers
+window.loadBrowser = loadBrowser;
+window.navigate = navigate;
+window.navigateBrowser = navigateBrowser;
+
+</script>
+</body>
+</html>
